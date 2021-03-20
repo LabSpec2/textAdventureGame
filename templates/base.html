@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+
+<head>
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"-->
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+	<style>
+		body {
+			background-image: url('https://cdn.wallpapersafari.com/97/83/cM7eOa.jpg');
+			background-position: top center;
+			background-repeat: repeat;
+			background-size: cover;
+			height: 100vh;
+			margin: 0;
+			display: grid;
+		}
+		.wrapper {
+			display: grid;
+			grid-template-columns: 1fr 3fr 1fr;
+			grid-template-rows: 1fr 5fr;
+		}
+		.box1 {
+			grid-column-start: 1;
+			grid-column-end: 4;
+			grid-row-start: 1;
+			grid-row-end: 2;
+			background-color: rgba(0, 0, 0, 0.6);
+			border-radius: 12px;
+			color: rgba(255, 255, 255, 0.7);
+			font-family: Luminari, fantasy;
+			line-height: 1.5;
+			max-width: 100%;
+			text-align: left;
+			place-items: center stretch;
+			margin: 2em;
+			padding: 0rem 2rem;
+		}
+		
+		.box2 {
+			grid-column-start: 1;
+			grid-column-end: 2;
+			grid-row-start: 2;
+			grid-row-end: 3;
+			background-color: rgba(0, 0, 0, 0.6);
+			border-radius: 12px;
+			color: rgba(255, 255, 255, 0.7);
+			font-family: Luminari, fantasy;
+			line-height: 1.5;
+			max-width: 100%;
+			text-align: left;
+			margin: 2em;
+			padding: 1rem 2rem;
+			max-height: 35%;
+		}
+		.box3 {
+			grid-column-start: 3;
+			grid-column-end: 4;
+			grid-row-start: 2;
+			grid-row-end: 3;
+			background-color: rgba(0, 0, 0, 0.6);
+			border-radius: 12px;
+			color: rgba(255, 255, 255, 0.7);
+			font-family: Luminari, fantasy;
+			line-height: 1.5;
+			max-width: 100%;
+			text-align: center;
+			margin: 2em;
+			padding: 1rem 2rem;
+			max-height: 22%;
+		}
+		
+		.box4 {
+			grid-column-start: 2;
+			grid-column-end: 3;
+			grid-row-start: 2;
+			grid-row-end: 3;
+			margin: 2em;
+			place-items: center stretch;
+		}
+		</style>
+
+	<div class="wrapper">
+		<div class="box1">    
+			<p style="font-size: 30px;">Let's slay some monsters!</p>
+		</div>
+		<div class="box2"> 
+			<p style="font-size: 15px;">Inventory:<br><br>
+			broken umbrella,<br>
+			ashen-wood stake,<br>
+			torn pillow,<br>
+			apple,<br>
+			garlick,<br>
+			lighter,<br>
+			broken rake,<br>
+			porcelain plate,<br>
+			copper spoon,<br>
+			revolver with silver bullets<br></p>
+		</div>
+		<div class="box3"> 
+			<p style="font-size: 18px;">Adventurer JAKUB WĘDROWYCZ! <br><br></p>
+			<p style="font-size: 15px;">HP:100 </p>
+		</div>
+		<div class="box4"> 
+			{% block content3 %}
+			{% endblock %}
+		</div>
+	</div>
+
+</body>
+</html>

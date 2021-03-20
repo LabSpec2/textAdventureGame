@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}The Hounted Mansion Home Page{% endblock %}
+{% block content3 %}
+
+<style>
+      .glassy-text {
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 12px;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.5;
+        padding: 1rem 2rem;
+		text-align: center;
+      }
+      @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+        .glassy-text {
+			background-color: rgba(255, 255, 255, 0.5);
+        }
+      }
+    </style>
+	<div class="glassy-text">
+        <p style="font-size: 18px;"><b>Ready to enter the haunted mansion?</b></p>
+    </div>
+{% endblock %}
+
