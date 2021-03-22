@@ -68,7 +68,7 @@
 			text-align: center;
 			margin: 2em;
 			padding: 1rem 2rem;
-			max-height: 22%;
+			max-height: 42%;
 		}
 		
 		.box4 {
@@ -99,8 +99,14 @@
 			revolver with silver bullets<br></p>
 		</div>
 		<div class="box3"> 
-			<p style="font-size: 18px;">Adventurer JAKUB WĘDROWYCZ! <br><br></p>
+			<p style="font-size: 18px;">Adventurer {{hero.name}}! <br><br></p>
 			<p style="font-size: 15px;">HP:100 </p>
+            <br/>
+            <p style="font-size: 15px;"><b><i>Statystyki </i></b></p>
+            <p style="font-size: 15px;"><i>Strength: {{hero.stats.strength}} </i></p>
+            <p style="font-size: 15px;"><i>Wisdom: {{hero.stats.wisdom}} </i></p>
+            <p style="font-size: 15px;"><i>Speed: {{hero.stats.speed}} </i></p>
+            
 		</div>
 		<div class="box4"> 
 			{% block content3 %}
