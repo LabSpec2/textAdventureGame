@@ -87,16 +87,13 @@
 		</div>
 		<div class="box2"> 
 			<p style="font-size: 15px;">Inventory:<br><br>
-			broken umbrella,<br>
-			ashen-wood stake,<br>
-			torn pillow,<br>
-			apple,<br>
-			garlick,<br>
-			lighter,<br>
-			broken rake,<br>
-			porcelain plate,<br>
-			copper spoon,<br>
-			revolver with silver bullets<br></p>
+            {% for key in item_stats %}
+                {% if key in hero.collected_items %}
+                    <p style="color:red;font-size: 15px;">{{key}}</p>
+                {% else %}
+                    <p style="font-size: 15px;">{{key}}</p>
+                {% endif %}
+            {% endfor %}
 		</div>
 		<div class="box3"> 
 			<p style="font-size: 18px;">Adventurer: {{hero.name}}! <br><br></p>

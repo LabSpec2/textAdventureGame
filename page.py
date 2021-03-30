@@ -46,10 +46,11 @@ class MonsterType(enum.Enum):
 	Zombie = 6
 	Skeleton = 1
     
+"""
 class ItemType(enum.Enum):
-    WoddenBat = 1,
+    WoodenBat = 1,
     ThinStick = 2,
-    Garlick = 3,
+    Garlic = 3,
     Salt = 4,
     AspenWoodStake = 5,
     Revolver = 6,
@@ -60,8 +61,8 @@ class ItemType(enum.Enum):
     SmallPainting = 11,
     OldShoe = 12,
     Pillow = 13
-    
-    
+"""    
+
 monster_hp = {MonsterType.Vampire:30, MonsterType.Ghost:18, MonsterType.Ghoul:12,\
               MonsterType.Zombie:9, MonsterType.Skeleton:3}  
 
@@ -73,19 +74,19 @@ hero_modifier = {MonsterType.Vampire:"charisma", MonsterType.Ghost:"wisdom",\
                     MonsterType.Ghoul:"strength", MonsterType.Zombie:"dexterity",\
                     MonsterType.Skeleton:"strength"}
                     
-item_stats = {ItemType.WoddenBat:{"dexterity":5,"constitution":4,"charisma":3},\
-              ItemType.ThinStick:{"dexterity":2,"constitution":3,"charisma":4},\
-              ItemType.Garlick:{"dexterity":0,"constitution":0,"charisma":7},\
-              ItemType.Salt:{"dexterity":0,"constitution":0,"charisma":0},\
-              ItemType.AspenWoodStake:{"dexterity":0,"constitution":1,"charisma":9},\
-              ItemType.Revolver:{"dexterity":4,"constitution":2,"charisma":5},\
-              ItemType.Apple:{"dexterity":0,"constitution":1,"charisma":0},\
-              ItemType.EmptyCan:{"dexterity":1,"constitution":2,"charisma":0},\
-              ItemType.BrokenUmbrella:{"dexterity":1,"constitution":2,"charisma":0},\
-              ItemType.PlantPot:{"dexterity":1,"constitution":1,"charisma":1},\
-              ItemType.SmallPainting:{"dexterity":2,"constitution":3,"charisma":1},\
-              ItemType.OldShoe:{"dexterity":2,"constitution":1,"charisma":0},\
-              ItemType.Pillow:{"dexterity":0,"constitution":5,"charisma":0}}
+item_stats = {"WoodenBat":{"dexterity":5,"constitution":4,"charisma":3},\
+              "ThinStick":{"dexterity":2,"constitution":3,"charisma":4},\
+              "Garlic":{"dexterity":0,"constitution":0,"charisma":7},\
+              "Salt":{"dexterity":0,"constitution":0,"charisma":0},\
+              "Aspen-Wood Stake":{"dexterity":0,"constitution":1,"charisma":9},\
+              "Revolver":{"dexterity":4,"constitution":2,"charisma":5},\
+              "Apple":{"dexterity":0,"constitution":1,"charisma":0},\
+              "EmptyCan":{"dexterity":1,"constitution":2,"charisma":0},\
+              "BrokenUmbrella":{"dexterity":1,"constitution":2,"charisma":0},\
+              "PlantPot":{"dexterity":1,"constitution":1,"charisma":1},\
+              "SmallPainting":{"dexterity":2,"constitution":3,"charisma":1},\
+              "OldShoe":{"dexterity":2,"constitution":1,"charisma":0},\
+              "Pillow":{"dexterity":0,"constitution":5,"charisma":0}}
 
 
 class Monster:
@@ -131,10 +132,17 @@ def story():
     return render_template("story_template.html", hero=temp_hero)
    
 #temp route   
-@app.route("/story/add/<ile>")
+@app.route("/stats/add/<ile>")
 def ile(ile):
     temp_hero.upgrade(makeDict({"strength" : int(ile)}))
     return render_template("story_template.html", hero=temp_hero)
+    
+#temp route
+@app.route("/item/add/<what>")
+def item(what):
+    temp_hero.addItem(what)
+    return render_template("story_template.html", hero=temp_hero, item_stats=item_stats)
+ 
 
 if __name__ == "__main__":
     app.run(debug=True)
