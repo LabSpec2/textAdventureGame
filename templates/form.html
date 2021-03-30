@@ -37,26 +37,9 @@
 			margin: 2em;
 			padding: 0rem 2rem;
 		}
-		
-		.box2 {
-			grid-column-start: 1;
-			grid-column-end: 2;
-			grid-row-start: 2;
-			grid-row-end: 3;
-			background-color: rgba(0, 0, 0, 0.6);
-			border-radius: 12px;
-			color: rgba(255, 255, 255, 0.7);
-			font-family: Luminari, fantasy;
-			line-height: 1.5;
-			max-width: 100%;
-			text-align: left;
-			margin: 2em;
-			padding: 1rem 2rem;
-			max-height: 35%;
-		}
-		.box3 {
-			grid-column-start: 3;
-			grid-column-end: 4;
+		.box5 {
+			grid-column-start: 2;
+			grid-column-end: 3;
 			grid-row-start: 2;
 			grid-row-end: 3;
 			background-color: rgba(0, 0, 0, 0.6);
@@ -66,54 +49,28 @@
 			line-height: 1.5;
 			max-width: 100%;
 			text-align: center;
-			margin: 2em;
-			padding: 1rem 2rem;
-			max-height: 42%;
-		}
-		
-		.box4 {
-			grid-column-start: 2;
-			grid-column-end: 3;
-			grid-row-start: 2;
-			grid-row-end: 3;
-			margin: 2em;
 			place-items: center stretch;
+			margin: 2em;
+			padding: 0rem 2rem;
 		}
 		</style>
 
 	<div class="wrapper">
 		<div class="box1">    
-			<p style="font-size: 30px;">Let's slay some monsters!</p>
+			<p style="font-size: 30px;">Enter your credentials</p>
 		</div>
-		<div class="box2"> 
-			<p style="font-size: 15px;">Inventory:<br><br>
-			broken umbrella,<br>
-			ashen-wood stake,<br>
-			torn pillow,<br>
-			apple,<br>
-			garlick,<br>
-			lighter,<br>
-			broken rake,<br>
-			porcelain plate,<br>
-			copper spoon,<br>
-			revolver with silver bullets<br></p>
-		</div>
-		<div class="box3"> 
-			<p style="font-size: 18px;">Adventurer: {{hero.name}} <br><br></p>
-			<p style="font-size: 15px;">HP: {{hero.HP}} </p>
-            <br/>
+		<form action="/" method = "POST" class="box5">
+    		<p style="font-size: 30px;">User name <input type = "text" name = "Name" /></p>
+			<p style="font-size: 15px;"><i>Number of your points: {{hero.HP}} </i></p>
+			<p style="font-size: 15px;"><i>You can split your points into different stats: </i></p>
+			<br/>
             <p style="font-size: 15px;"><i>Strength: {{hero.stats.strength}} </i></p>
             <p style="font-size: 15px;"><i>Dexterity: {{hero.stats.dexterity}} </i></p>
             <p style="font-size: 15px;"><i>Constitution: {{hero.stats.constitution}} </i></p>
 			<p style="font-size: 15px;"><i>Wisdom: {{hero.stats.wisdom}} </i></p>
             <p style="font-size: 15px;"><i>Charisma: {{hero.stats.charisma}} </i></p>
-            
-		</div>
-		<div class="box4"> 
-			{% block content3 %}
-			{% endblock %}
-		</div>
+    		<p><input type = "submit" value = "Submit" /></p>
+		</form>
 	</div>
-
 </body>
 </html>

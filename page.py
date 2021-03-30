@@ -41,9 +41,9 @@ app = Flask(__name__)
 temp_hero = Hero(name = "Wedrownik")
 upgrade(temp_hero, stat_name="strength", points=int(5))
 
-@app.route("/")
+'''@app.route("/")
 def home():
-    return render_template("index.html", hero=temp_hero)
+    return render_template("index.html", hero=temp_hero)'''
 
 @app.route("/story/")
 def story():
@@ -51,8 +51,23 @@ def story():
     
 @app.route("/story/add/<ile>")
 def ile(ile):
-    upgrade(temp_hero, stat_name="strength",points=int(ile))
+    upgrade(temp_hero, stat_name="strength", points=int(ile))
     return render_template("story_template.html", hero=temp_hero)
 
+#////////////////////////////////////////////////
+@app.route('/form')
+def form():
+    return render_template('form.html', hero=temp_hero)
+
+@app.route('/', methods=['POST', 'GET'])
+def data():
+    if request.method == 'GET':
+        return f"Try going to '/form' to submit form"
+    if request.method == 'POST':
+        temp_hero.name = list(request.form.values())[0]
+        return render_template("index.html", hero=temp_hero)
+        #return render_template('data.html', form_data=form_data)
+
+#//////////////////////////////////////////////////
 if __name__ == "__main__":
     app.run(debug=True)
