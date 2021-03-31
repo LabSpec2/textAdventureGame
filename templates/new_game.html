@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Create Adventurer{% endblock %}
+{% block content4 %}
+
+
+	<div class="glassy-text">
+	
+	<form >
+		<fieldset>
+			<legend>Name your adventurer</legend>
+			<input type="text" id="name">
+		</fieldset>
+		<fieldset>
+			<legend>Roll for your character points</legend>
+			<button class="small_buttons">Roll the dice!</button>
+			<br>
+			<br>
+			<br>
+		<!--/fieldset>
+		<fieldset-->
+			<legend>Distribute your character points over five aspects of your character</legend>
+			<label for="str">Strength:</label>
+			<input type="text" id="str">
+			<br>
+			<label for="dex">Dexterity:</label>
+			<input type="text" id="dex">
+			<br>
+			<label for="con">Constitution:</label>
+			<input type="text" id="con">
+			<br>
+			<label for="wis">Wisdom:</label>
+			<input type="text" id="wis">
+			<br>
+			<label for="cha">Charisma:</label>
+			<input type="text" id="cha">
+		</fieldset>
+	</form>
+		<p align="center"><a href="http://127.0.0.1:5000/story/" ><button class="big_buttons">Let's go!</button></a></p>
+		
+    </div>
+	
+{% endblock %}
+
+
