@@ -1,0 +1,146 @@
+	body {
+		background-color: rgba(0, 0, 0, 0.01);
+		margin: 0;
+	}
+	input[type=text] {
+			
+			background-color: rgba(0, 0, 0, 0.6);
+			color: rgba(255, 255, 255, 0.7);
+			padding: 0.5rem 1rem;
+			text-align: left;
+			border-radius: 6px;
+			
+		}
+	label { 
+		display : inline-block;
+		float: center;
+		width: 8em;
+	}
+		.stats_input {
+			width:5%;
+		}
+		.name_input {
+			width:30%;
+		}
+		.wrapper {
+			display: grid;
+			grid-template-columns: 1fr 5fr 1fr;
+			grid-template-rows: 1fr 2fr 5fr;
+		}
+		.header_box {
+			grid-column-start: 1;
+			grid-column-end: 4;
+			grid-row-start: 1;
+			grid-row-end: 2;
+			background-color: rgba(0, 0, 0, 1);
+			color: rgba(255, 255, 255, 0.7);
+			font-family: Luminari, fantasy;
+			line-height: 1.5;
+			text-align: left;
+			place-items: center stretch;
+		}
+		.top_left_box {
+			grid-column-start: 1;
+			grid-column-end: 2;
+			grid-row-start: 3;
+			grid-row-end: 4;
+			background-color: rgba(0, 0, 0, 0.9);
+			color: rgba(255, 255, 255, 0.7);
+			font-family: Luminari, fantasy;
+			line-height: 1.2;
+			text-align: center;
+			place-items: center stretch;
+		}
+		.bottom_left_box {
+			grid-column-start: 1;
+			grid-column-end: 2;
+			grid-row-start: 2;
+			grid-row-end: 3;
+			background-color: rgba(0, 0, 0, 0.9);
+			color: rgba(255, 255, 255, 0.7);
+			font-family: Luminari, fantasy;
+			line-height: 2.5;
+			text-align: center;
+			place-items: center stretch;
+		}
+		.background_box {
+			grid-column-start: 2;
+			grid-column-end: 4;
+			grid-row-start: 2;
+			grid-row-end: 4;
+			place-items: center stretch;
+			
+			background-image: url('https://cdn.wallpapersafari.com/97/83/cM7eOa.jpg');
+			background-position: bottom right;
+			background-repeat: round;
+			background-size: cover;
+			
+		}
+		.center_box {
+			grid-column-start: 2;
+			grid-column-end: 3;
+			grid-row-start: 2;
+			grid-row-end: 4;
+			place-items: center stretch;
+			
+		}
+		.glassy-text {
+		background-color: rgba(0, 0, 0, 0.6);
+		color: rgba(255, 255, 255, 0.7);
+		line-height: 1.5;
+		padding: 1rem 1rem;
+		margin-top: 1em;
+		margin-right: 1em;
+		margin-left: 1em;
+		margin-bottom: 0em;
+		text-align: center;
+		border-radius: 6px;
+		}
+		@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+			.glassy-text {
+			background-color: rgba(255, 255, 255, 0.5);}
+		}
+		.big_buttons {
+		background-color: rgba(0, 0, 0, 0.6);
+		border-radius: 12px;
+		color: rgba(255, 255, 255, 0.7);
+		line-height: 1.5;
+		padding: 1rem 2rem;
+		text-align: center;
+		height:75px;
+		width:150px
+		}
+		.small_buttons {
+		background-color: rgba(0, 0, 0, 0.6);
+		border-radius: 12px;
+		color: rgba(255, 255, 255, 0.7);
+		line-height: 1.5;
+		padding: 0.5rem 1rem;
+		text-align: center;
+		height:50px;
+		width:150px
+		}
+		.text_buttons {
+		 background-color: transparent; 
+		 border: 0; 
+		 padding: 0;
+		 font-size: 18px;
+		color: rgba(255, 255, 155, 0.7);
+		line-height: 1.5;
+		text-align: left;
+			font-family: Luminari, fantasy;
+		}
+		.main-text {
+		background-color: rgba(0, 0, 0, 0.6);
+		color: rgba(255, 255, 255, 0.7);
+		line-height: 1.5;
+		padding: 1rem 2rem;
+		margin: 2em;
+		text-align: left;
+		border-radius: 6px;
+		}
+		@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+			.main-text {
+			background-color: rgba(255, 255, 255, 0.5);}
+		}
+		
