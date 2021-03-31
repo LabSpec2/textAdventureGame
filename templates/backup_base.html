@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+<head>
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"-->
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+	<style>
+		body {
+			background-image: url('https://cdn.wallpapersafari.com/97/83/cM7eOa.jpg');
+			background-position: top center;
+			background-repeat: repeat;
+			background-size: cover;
+			height: 100vh;
+			margin: 0;
+			display: grid;
+		}
+		.wrapper {
+			display: grid;
+			grid-template-columns: 1fr 4fr 12fr 4fr 1fr;
+			grid-template-rows: 1fr 5fr;
+			column-gap: 2em;
+			row-gap: 2em;
+		}
+		.box1 {
+			grid-column-start: 2;
+			grid-column-end: 5;
+			grid-row-start: 1;
+			grid-row-end: 2;
+			background-color: rgba(0, 0, 0, 0.6);
+			border-radius: 12px;
+			color: rgba(255, 255, 255, 0.7);
+			font-family: system-ui, serif;
+			line-height: 1.5;
+			max-width: 80%;
+			padding: 1rem 2rem;
+			text-align: center;
+			place-items: center stretch;
+			margin: 5em;
+			
+		}
+		
+		.box2 {
+			grid-column-start: 2;
+			grid-column-end: 3;
+			grid-row-start: 2;
+			grid-row-end: 3;
+			background-color: rgba(0, 0, 0, 0.6);
+			border-radius: 12px;
+			color: rgba(255, 255, 255, 0.7);
+			font-family: system-ui, serif;
+			line-height: 1.5;
+			max-width: 60%;
+			padding: 1rem 2rem;
+			text-align: center;
+		}
+		.box3 {
+			grid-column-start: 4;
+			grid-column-end: 5;
+			grid-row-start: 2;
+			grid-row-end: 3;
+			background-color: rgba(0, 0, 0, 0.6);
+			border-radius: 12px;
+			color: rgba(255, 255, 255, 0.7);
+			font-family: system-ui, serif;
+			line-height: 1.5;
+			max-width: 60%;
+			padding: 1rem 2rem;
+			text-align: center;
+		}
+		
+		.box4 {
+			grid-column-start: 3;
+			grid-column-end: 4;
+			grid-row-start: 2;
+			grid-row-end: 3;
+			text-align: center;
+		}
+		</style>
+
+	<div class="wrapper">
+		<div class="box1">    
+			Adventurer STEVE! 				HP:100
+		</div>
+		<div class="box2"> 
+			Inventory:\n
+			broken umbrella,\n
+			ashen-wood stake,
+			revolver with silver bullets
+		</div>
+		<div class="box3"> 
+			Empty for now
+		</div>
+		<div class="box4"> 
+			{% block content3 %}
+			{% endblock %}
+		</div>
+	</div>
+
+</body>
+</html>

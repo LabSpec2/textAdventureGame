@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Adventure begins!{% endblock %}
+
+{% block content2 %}
+	<div class="glassy-text">
+			<p style="font-size: 15px;">Inventory:<br>
+			<p>{% for x in inventory %}
+				{{x}}<br>
+			{% endfor %}</p>
+			</p>
+    </div>
+{% endblock %}
+
+{% block content3 %}
+	<div class="glassy-text">
+			<p style="font-size: 18px;">Adventurer </p>
+			<p style="font-size: 20px;text-transform: uppercase;">{{name}}! <br></p>
+			<p style="font-size: 15px;">HP:{{hp}} <br></p>
+			 <table style="width:100%">
+				  <tr>
+					<td>STR:{{ stat[0] }}</td>
+					<td>CON:{{ stat[1] }}</td>
+				  </tr>
+				  <tr>
+					<td>DEX:{{ stat[2] }}</td>
+					<td>WIS:{{ stat[3] }}</td>
+				  </tr>
+				  <tr>
+					<td>CHA:{{ stat[4] }}</td>
+				  </tr>
+				</table> 
+    </div>
+{% endblock %}
+
+{% block content4 %}
+	<div class="main-text">
+		<p style="font-size: 18px;">Hello, adventuter {{name}}! Let's enter the haunted mansion...<br><br>
+		You climb the weathered stone stairs, towards the great, oaken door.</p>
+		<p align="center"><a href=enter ><button class="small_buttons">Open the door</button></a></p>
+		<p align="center"><a href=back ><button class="small_buttons">Go back</button></a></p>
+    </div>
+{% endblock %}
