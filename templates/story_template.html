@@ -6,7 +6,7 @@
 			<p style="font-size: 15px;">Inventory:<br>
 			<p>{% for x in inventory %}
 				{{x}}<br>
-			{% endfor %}</p>
+			 {% endfor %}</p>
 			</p>
     </div>
 {% endblock %}
@@ -14,19 +14,19 @@
 {% block content3 %}
 	<div class="glassy-text">
 			<p style="font-size: 18px;">Adventurer </p>
-			<p style="font-size: 20px;text-transform: uppercase;">{{name}}! <br></p>
-			<p style="font-size: 15px;">HP:{{hp}} <br></p>
+			<p style="font-size: 20px;text-transform: uppercase;">{{hero.name}}! <br></p>
+			<p style="font-size: 15px;">HP:{{hero.hp}} <br></p>
 			 <table style="width:100%">
 				  <tr>
-					<td>STR:{{ stat[0] }}</td>
-					<td>CON:{{ stat[1] }}</td>
+					<td>STR:{{ hero.stats.strength }}</td>
+					<td>CON:{{ hero.stats.constitution }}</td>
 				  </tr>
 				  <tr>
-					<td>DEX:{{ stat[2] }}</td>
-					<td>WIS:{{ stat[3] }}</td>
+					<td>DEX:{{ hero.stats.dexterity }}</td>
+					<td>WIS:{{ hero.stats.wisdom }}</td>
 				  </tr>
 				  <tr>
-					<td>CHA:{{ stat[4] }}</td>
+					<td>CHA:{{ hero.stats.charisma }}</td>
 				  </tr>
 				</table> 
     </div>
