@@ -3,48 +3,46 @@
 {% block content4 %}
 
 
-	<div class="glassy-text">
-	
-	<form >
+<div class="glassy-text">
+	<form action="/story/" method = "POST">
 		<fieldset>
-			<legend style="font-size: 27px;">Name your adventurer</legend>
-			<input type="text" class="name_input" id="name">
+			<legend style="font-size: 27px;"> Name your adventurer</legend>
+			<input type = "text" name = "Name" value={{hero.name}}>
 		</fieldset>
 		<fieldset>
 			<legend style="font-size: 27px;">Roll for your character points</legend>
-			<button class="small_buttons">Roll the dice!</button>
+			<button class="small_buttons"  name='name' value="Roll the dice!">Roll the dice!</button>
 			<br>
-			<p> {{points}}  <!-- --><!-- should only display after buton click-->
+			<p> {{hero.HP}}  <!-- --><!-- should only display after buton click-->
 			<br>
 		</fieldset>
 		<fieldset>
 			<legend style="font-size: 27px;">Distribute your character points over five aspects of your character</legend>
-			
+
 			<label for="str">Strength:</label>
-			<input type="text" class="stats_input" id="str"> <br>
-				  
-				  
-					<label for="dex">Dexterity:</label>
-					<input type="text" class="stats_input" id="dex"><br>
-				  
-				  
-					<label for="con">Constitution:</label> 
-					<input type="text" class="stats_input"  id="con"> <br>
-				 
-				  
-					<label for="wis">Wisdom:</label> 
-					 <input type="text" class="stats_input"id="wis"><br>
-				  
-				  
-					<label for="cha">Charisma:</label> 
-					 <input type="text" class="stats_input"id="cha">
-				  
-				</table> 
+			<input type="text" class="stats_input" id="str" name="str"> <br>
+
+
+			<label for="dex">Dexterity:</label>
+			<input type="text" class="stats_input" id="dex" name="dex"><br>
+
+
+			<label for="con">Constitution:</label>
+			<input type="text" class="stats_input" id="con" name="con"> <br>
+
+
+			<label for="wis">Wisdom:</label>
+			<input type="text" class="stats_input"id="wis" name="wis"><br>
+
+
+			<label for="cha">Charisma:</label>
+			<input type="text" class="stats_input"id="cha" name="cha">
+
+			</table>
 		</fieldset>
+		<p align="center"><input  class="big_buttons" type = "submit" name='name' value="Let's go!"/></p>
 	</form>
-		<p align="center"><a href={{ url_for('story') }} ><button class="big_buttons">Let's go!</button></a></p>
-		
-    </div>
+</div>
 	
 {% endblock %}
 

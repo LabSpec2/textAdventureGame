@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, jsonify
 import random
 import enum
 import copy
@@ -93,7 +93,7 @@ class Hero:
         Hero.id_counter = Hero.id_counter + 1
         self.name = name
         self.stats = Stats()
-        self.HP = random.randint(20, 35)
+        self.HP = 0
         self.attack_range = attack_range
         self.collected_items = []
         self.dead = False
@@ -123,45 +123,45 @@ class Hero:
             if not monster_attacking.HP > 0:
                 monster_attacking.dead = True
                 return
-        
+
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-hero_ = Hero('Harry Dresden')
-hero_.upgrade(makeDict({"charisma":8, "strength":5}))
+hero_ = Hero()
 
-@app.route("/story/")
+@app.route("/story/", methods=['POST', 'GET'])
 def story():
-    return render_template("story_template.html", inventory = item_stats,hero=hero_)
-	
+    if request.method == 'GET':
+        return f"Try going to '/hero' to submit form"
+    if request.method == 'POST':
+        if request.form['name'] == "Let's go!" and hero_.HP != 0:
+            hero_.name = list(request.form.values())[0]
+            hero_.upgrade(makeDict(
+                {"strength": int(request.form["str"]),
+                 "dexterity": int(request.form["dex"]),
+                 "constitution": int(request.form["con"]),
+                 "wisdom": int(request.form["wis"]),
+                 "charisma": int(request.form["cha"])}))
+            return render_template("story_template.html", inventory = item_stats, hero=hero_)
+        if request.form['name'] == "Roll the dice!":
+            hero_.name = list(request.form.values())[0]
+            hero_.HP = random.randint(20, 35)
+            return render_template("hero.html", hero=hero_)
+
 @app.route("/hero/")
 def hero():
-    return render_template("hero.html", points = 25)
-    
+    return render_template("hero.html", hero=hero_)
+
 if __name__ == "__main__":
     app.run(debug=True)
 
 '''
-    
+  
 @app.route("/story/add/<ile>")
 def ile(ile):
     upgrade(temp_hero, stat_name="strength", points=int(ile))
     return render_template("story_template.html", hero=temp_hero)
-
-#////////////////////////////////////////////////
-@app.route('/form')
-def form():
-    return render_template('form.html', hero=temp_hero)
-
-@app.route('/', methods=['POST', 'GET'])
-def data():
-    if request.method == 'GET':
-        return f"Try going to '/form' to submit form"
-    if request.method == 'POST':
-        temp_hero.name = list(request.form.values())[0]
-        return render_template("index.html", hero=temp_hero)
-        #return render_template('data.html', form_data=form_data)
 
 '''
