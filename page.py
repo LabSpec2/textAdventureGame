@@ -131,24 +131,58 @@ def home():
 
 hero_ = Hero()
 
+def check_minus(val):
+    return val > 0
+
+def check_plus(val_HP, val_stats):
+    return (val_HP > 0 and val_stats < 10)
+
 @app.route("/story/", methods=['POST', 'GET'])
 def story():
     if request.method == 'GET':
         return f"Try going to '/hero' to submit form"
     if request.method == 'POST':
+        hero_.name = list(request.form.values())[0]
         if request.form['name'] == "Let's go!" and hero_.HP != 0:
-            hero_.name = list(request.form.values())[0]
-            hero_.upgrade(makeDict(
-                {"strength": int(request.form["str"]),
-                 "dexterity": int(request.form["dex"]),
-                 "constitution": int(request.form["con"]),
-                 "wisdom": int(request.form["wis"]),
-                 "charisma": int(request.form["cha"])}))
             return render_template("story_template.html", inventory = item_stats, hero=hero_)
         if request.form['name'] == "Roll the dice!":
-            hero_.name = list(request.form.values())[0]
             hero_.HP = random.randint(20, 35)
-            return render_template("hero.html", hero=hero_)
+
+        if request.form['name'] == "str_plus" and check_plus(hero_.HP, hero_.stats.strength):
+            hero_.HP -= 1
+            hero_.upgrade(makeDict({"strength": 1}))
+        if request.form['name'] == "str_minus" and check_minus(hero_.stats.strength):
+            hero_.HP += 1
+            hero_.upgrade(makeDict({"strength": -1}))
+
+        if request.form['name'] == "dex_plus" and check_plus(hero_.HP, hero_.stats.dexterity):
+            hero_.HP -= 1
+            hero_.upgrade(makeDict({"dexterity": 1}))
+        if request.form['name'] == "dex_minus" and check_minus(hero_.stats.dexterity):
+            hero_.HP += 1
+            hero_.upgrade(makeDict({"dexterity": -1}))
+
+        if request.form['name'] == "con_plus" and check_plus(hero_.HP, hero_.stats.constitution):
+            hero_.HP -= 1
+            hero_.upgrade(makeDict({"constitution": 1}))
+        if request.form['name'] == "con_minus" and check_minus(hero_.stats.constitution):
+            hero_.HP += 1
+            hero_.upgrade(makeDict({"constitution": -1}))
+
+        if request.form['name'] == "wis_plus" and check_plus(hero_.HP, hero_.stats.wisdom):
+            hero_.HP -= 1
+            hero_.upgrade(makeDict({"wisdom": 1}))
+        if request.form['name'] == "wis_minus" and check_minus(hero_.stats.wisdom):
+            hero_.HP += 1
+            hero_.upgrade(makeDict({"wisdom": -1}))
+
+        if request.form['name'] == "cha_plus" and check_plus(hero_.HP, hero_.stats.charisma):
+            hero_.HP -= 1
+            hero_.upgrade(makeDict({"charisma": 1}))
+        if request.form['name'] == "cha_minus" and check_minus(hero_.stats.charisma):
+            hero_.HP += 1
+            hero_.upgrade(makeDict({"charisma": -1}))
+        return render_template("hero.html", hero=hero_)
 
 @app.route("/hero/")
 def hero():
