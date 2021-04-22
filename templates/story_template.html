@@ -18,15 +18,15 @@
 			<p style="font-size: 15px;">HP:{{hero.HP}} <br></p>
 			 <table style="width:100%">
 				  <tr>
-					<td>STR:{{ hero.stats.strength }}</td>
-					<td>CON:{{ hero.stats.constitution }}</td>
+					<td class="stats_display">Brawn:</td><td>{{ hero.stats.strength }}</td>
+					<td class="stats_display">Finesse:</td><td>{{ hero.stats.dexterity }}</td>
 				  </tr>
 				  <tr>
-					<td>DEX:{{ hero.stats.dexterity }}</td>
-					<td>WIS:{{ hero.stats.wisdom }}</td>
+					<td class="stats_display">Resolve:</td><td>{{ hero.stats.constitution }}</td>
+					<td class="stats_display">Wits:</td><td>{{ hero.stats.wisdom }}</td>
 				  </tr>
 				  <tr>
-					<td>CHA:{{ hero.stats.charisma }}</td>
+					<td class="stats_display">Panache:</td><td>{{ hero.stats.charisma }}</td>
 				  </tr>
 				</table> 
     </div>
