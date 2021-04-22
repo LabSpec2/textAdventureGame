@@ -120,6 +120,14 @@
 		height:50px;
 		width:150px
 		}
+		.square_buttons {
+			background-color: rgba(0, 0, 0, 0.6);
+			border-radius: 8px;
+			color: rgba(255, 255, 255, 0.7);
+			text-align: center;
+			height:30px;
+			width:30px
+		}
 		.text_buttons {
 		 background-color: transparent; 
 		 border: 0; 
