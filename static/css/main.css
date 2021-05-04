@@ -146,6 +146,7 @@
 		margin: 2em;
 		text-align: left;
 		border-radius: 6px;
+		font-size: 16px
 		}
 		@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
 			.main-text {

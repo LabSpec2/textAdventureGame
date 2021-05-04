@@ -94,15 +94,18 @@ class Hero:
         self.name = name
         self.stats = Stats()
         self.HP = 0
+        self.stat_points = 0
         self.attack_range = attack_range
-        self.collected_items = []
+        self.collected_items = ""
         self.dead = False
 
     def upgrade(self, skill_dict):
         self.stats.add(skill_dict)
     
     def addItem(self, item):
-        self.collected_items.append(item)
+        new_thing="\n"+str(item)
+        self.collected_items += new_thing
+        
         #dict_ = makeDict(item_stats[item])
         #self.stats.add(dict_)
         
@@ -124,11 +127,11 @@ class Hero:
                 monster_attacking.dead = True
                 return
 
-
 @app.route("/")
 def home():
     return render_template("index.html")
 
+votes = 0
 hero_ = Hero()
 
 def check_minus(val):
@@ -144,43 +147,44 @@ def story():
     if request.method == 'POST':
         hero_.name = list(request.form.values())[0]
         if request.form['name'] == "Let's go!" and hero_.HP != 0:
-            return render_template("story_template.html", inventory = item_stats, hero=hero_)
+            return render_template("enter.html", inventory = item_stats, hero=hero_)
         if request.form['name'] == "Roll the dice!":
-            hero_.HP = random.randint(20, 35)
+            hero_.stat_points = random.randint(20, 35)
+            hero_.HP = random.randint(80, 100)
 
-        if request.form['name'] == "str_plus" and check_plus(hero_.HP, hero_.stats.strength):
-            hero_.HP -= 1
+        if request.form['name'] == "str_plus" and check_plus(hero_.stat_points, hero_.stats.strength):
+            hero_.stat_points -= 1
             hero_.upgrade(makeDict({"strength": 1}))
         if request.form['name'] == "str_minus" and check_minus(hero_.stats.strength):
-            hero_.HP += 1
+            hero_.stat_points += 1
             hero_.upgrade(makeDict({"strength": -1}))
 
-        if request.form['name'] == "dex_plus" and check_plus(hero_.HP, hero_.stats.dexterity):
-            hero_.HP -= 1
+        if request.form['name'] == "dex_plus" and check_plus(hero_.stat_points, hero_.stats.dexterity):
+            hero_.stat_points -= 1
             hero_.upgrade(makeDict({"dexterity": 1}))
         if request.form['name'] == "dex_minus" and check_minus(hero_.stats.dexterity):
-            hero_.HP += 1
+            hero_.stat_points += 1
             hero_.upgrade(makeDict({"dexterity": -1}))
 
-        if request.form['name'] == "con_plus" and check_plus(hero_.HP, hero_.stats.constitution):
-            hero_.HP -= 1
+        if request.form['name'] == "con_plus" and check_plus(hero_.stat_points, hero_.stats.constitution):
+            hero_.stat_points -= 1
             hero_.upgrade(makeDict({"constitution": 1}))
         if request.form['name'] == "con_minus" and check_minus(hero_.stats.constitution):
-            hero_.HP += 1
+            hero_.stat_points += 1
             hero_.upgrade(makeDict({"constitution": -1}))
 
-        if request.form['name'] == "wis_plus" and check_plus(hero_.HP, hero_.stats.wisdom):
-            hero_.HP -= 1
+        if request.form['name'] == "wis_plus" and check_plus(hero_.stat_points, hero_.stats.wisdom):
+            hero_.stat_points -= 1
             hero_.upgrade(makeDict({"wisdom": 1}))
         if request.form['name'] == "wis_minus" and check_minus(hero_.stats.wisdom):
-            hero_.HP += 1
+            hero_.stat_points += 1
             hero_.upgrade(makeDict({"wisdom": -1}))
 
-        if request.form['name'] == "cha_plus" and check_plus(hero_.HP, hero_.stats.charisma):
-            hero_.HP -= 1
+        if request.form['name'] == "cha_plus" and check_plus(hero_.stat_points, hero_.stats.charisma):
+            hero_.stat_points -= 1
             hero_.upgrade(makeDict({"charisma": 1}))
         if request.form['name'] == "cha_minus" and check_minus(hero_.stats.charisma):
-            hero_.HP += 1
+            hero_.stat_points += 1
             hero_.upgrade(makeDict({"charisma": -1}))
         return render_template("hero.html", hero=hero_)
 
@@ -188,14 +192,21 @@ def story():
 def hero():
     return render_template("hero.html", hero=hero_)
 
+@app.route("/hall/")
+def hall():
+    return render_template("hall.html", hero=hero_)
+
+@app.route("/room01/")
+def room01():
+    return render_template("room01.html", hero=hero_)
+    
+@app.route("/pick_item", methods=["POST"])
+def upvote():
+    item = str(request.form)
+    item = item[item.find("(")+4 : item.find(",")-1]
+    hero_.addItem(item)
+    return str(hero_.collected_items)
+
 if __name__ == "__main__":
     app.run(debug=True)
 
-'''
-  
-@app.route("/story/add/<ile>")
-def ile(ile):
-    upgrade(temp_hero, stat_name="strength", points=int(ile))
-    return render_template("story_template.html", hero=temp_hero)
-
-'''

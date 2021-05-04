@@ -1,12 +1,10 @@
 {% extends "base.html" %}
-{% block title %}Adventure begins!{% endblock %}
+{% block title %}{% endblock %}
 
 {% block content2 %}
-	<div class="glassy-text">
-			<p style="font-size: 15px;">Inventory:<br>
-			<p>{% for x in inventory %}
-				{{x}}<br>
-			 {% endfor %}</p>
+	<div class="glassy-text" >
+			<p style="font-size: 15px;">Inventory:<br> 
+			<span id="items" style="white-space: pre-wrap;">{{ hero.collected_items }}</span>
 			</p>
     </div>
 {% endblock %}
@@ -15,8 +13,8 @@
 	<div class="glassy-text">
 			<p style="font-size: 18px;">Adventurer </p>
 			<p style="font-size: 20px;text-transform: uppercase;">{{hero.name}} ! <br></p>
-			<p style="font-size: 15px;">HP:{{hero.HP}} <br></p>
-			 <table style="width:100%">
+			<p style="font-size: 15px">HP: {{hero.HP}} <br></p>
+			 <table style="width:100%; text-align:left">
 				  <tr>
 					<td class="stats_display">Brawn:</td><td>{{ hero.stats.strength }}</td>
 					<td class="stats_display">Finesse:</td><td>{{ hero.stats.dexterity }}</td>
@@ -33,10 +31,7 @@
 {% endblock %}
 
 {% block content4 %}
-	<div class="main-text">
-		<p style="font-size: 18px;">Hello, adventuter {{name}}! Let's enter the haunted mansion...<br><br>
-		You climb the weathered stone stairs, towards the great, oaken <button class="text_buttons">door</button>.</p>
-		<p align="center"><a href=story ><button class="small_buttons">Open the door</button></a></p>
-		<p align="center"><a href="/"><button class="small_buttons">Go back</button></a></p>
-    </div>
+{% block content5 %}
+
+{% endblock %}
 {% endblock %}

@@ -1,0 +1,36 @@
+{% extends "story_template.html" %}
+{% block title %}The Hall{% endblock %}
+
+{% block content5 %}
+	<div class="main-text">
+		<p >You are in the hall. There is a grand staircase in front of you, and doors to other rooms on your sides.<br>
+		Right next to the door, there is an umbrella stand with <button id="broken umbrella" class="text_buttons">broken umbrella</button> in it.</p>
+
+		
+
+		<p align="center"><a href=/room01 ><button class="small_buttons">Go to some room</button></a></p>
+		<p align="center"><a href="/"><button class="small_buttons">Go back</button></a></p>
+	</div>
+
+
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', () => {
+			document.querySelectorAll('button').forEach(button => {
+				button.onclick = () => {
+					const request = new XMLHttpRequest();
+					request.open('POST', `/pick_item`);
+					request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					
+					request.onload = () => {
+						const response = request.responseText;
+						document.getElementById('items').innerHTML = response;
+					}; 
+					request.send(button.id);
+					
+				};
+			});
+		});
+	</script>
+
+{% endblock %}
+
