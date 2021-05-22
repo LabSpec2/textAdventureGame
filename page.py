@@ -62,19 +62,33 @@ hero_modifier = {MonsterType.Vampire:"charisma", MonsterType.Ghost:"wisdom",\
                     MonsterType.Ghoul:"strength", MonsterType.Zombie:"dexterity",\
                     MonsterType.Skeleton:"strength"}
                     
-item_stats = {"WoodenBat":{"dexterity":5,"constitution":4,"charisma":3},\
-              "ThinStick":{"dexterity":2,"constitution":3,"charisma":4},\
-              "Garlic":{"dexterity":0,"constitution":0,"charisma":7},\
-              "Salt":{"dexterity":0,"constitution":0,"charisma":0},\
-              "Aspen-Wood Stake":{"dexterity":0,"constitution":1,"charisma":9},\
-              "Revolver":{"dexterity":4,"constitution":2,"charisma":5},\
-              "Apple":{"dexterity":0,"constitution":1,"charisma":0},\
-              "EmptyCan":{"dexterity":1,"constitution":2,"charisma":0},\
-              "BrokenUmbrella":{"dexterity":1,"constitution":2,"charisma":0},\
-              "PlantPot":{"dexterity":1,"constitution":1,"charisma":1},\
-              "SmallPainting":{"dexterity":2,"constitution":3,"charisma":1},\
-              "OldShoe":{"dexterity":2,"constitution":1,"charisma":0},\
-              "Pillow":{"dexterity":0,"constitution":5,"charisma":0}}
+item_stats = {"wooden bat":{"dexterity":5,"constitution":4,"charisma":3},\
+              "thin stick":{"dexterity":2,"constitution":3,"charisma":4},\
+              "garlic":{"dexterity":0,"constitution":0,"charisma":7},\
+              "salt":{"dexterity":0,"constitution":0,"charisma":0},\
+              "aspen-wood stake":{"dexterity":0,"constitution":1,"charisma":9},\
+              "silver fork":{"dexterity":4,"constitution":2,"charisma":5},\
+              "apple":{"dexterity":0,"constitution":1,"charisma":0},\
+              "empty can":{"dexterity":1,"constitution":2,"charisma":0},\
+              "broken umbrella":{"dexterity":1,"constitution":2,"charisma":0},\
+              "plant pot":{"dexterity":1,"constitution":1,"charisma":1},\
+              "small painting":{"dexterity":2,"constitution":3,"charisma":1},\
+              "old shoe":{"dexterity":2,"constitution":1,"charisma":0},\
+              "pillow":{"dexterity":0,"constitution":5,"charisma":0}}
+
+item_text = {"wooden bat":"You grab the wooden bat and take a swing at the monster.\n",\
+              "thin stick":"The stick seems rather feeble, but you hold it tight and aim for the creature's face.\n",\
+              "garlic":"You clench the garlick in your fist and attempt to shove it in the monster's mouth.\n",\
+              "salt":"Desperatly, you grab the pich of salt and throw it at the monster.\n",\
+              "aspen-wood stake":"You take the wooden stake and aim straigth for the monsters heart.\n",\
+              "silver fork":"The fork is tiny, but the silver will surly hurt the creature\n",\
+              "apple":"You grab the... apple? Well, that might end up poorly. Desperatly, you throw it at the monster\n",\
+              "empty can":"You grab the empty can and try to aim its sharp edge towards the monster.\n",\
+              "broken umbrella":"You grab the umbrella and point its spiky end at the creature.\n",\
+              "plant pot":"The plant pot might be a decent ranged weapon, but your not sure how it will do in meele. You grab it regardless\n",\
+              "small painting":"Luckily, this painting was made on a wooden board. You wack the creature right in the face.\n",\
+              "old shoe":"You grab the old shoe like a mace. It might be good, it has iron nails in the sole\n",\
+              "pillow":"It might not be what you would wish you had, but in desperate times... The geese-featered pillow is pretty heavy!\n"}
 
 
 class Monster:
@@ -84,7 +98,9 @@ class Monster:
         self.dead = False
 
     def getAttack(self, hero_attacking):
-        return 10 + randrange(self.type) - hero_attacking.stats.getByName(monster_modifier[self.type])
+        return 10 + randrange(self.type.value) - hero_attacking.stats.getByName(monster_modifier[self.type])
+
+monster_ = Monster(MonsterType.Ghoul)
         
 class Hero:
     id_counter = 0
@@ -96,6 +112,8 @@ class Hero:
         self.HP = 0
         self.stat_points = 0
         self.attack_range = attack_range
+        self.items = [] 
+    
         self.collected_items = ""
         self.dead = False
 
@@ -104,34 +122,48 @@ class Hero:
     
     def addItem(self, item):
         new_thing="\n"+str(item)
-        self.collected_items += new_thing
-        
+        if item not in self.items:
+            self.collected_items += new_thing
+            self.items.append(str(item))
         #dict_ = makeDict(item_stats[item])
         #self.stats.add(dict_)
         
     def getAttack(self, monster_attacking):    
         return 10 + randrange(self.attack_range) + self.stats.getByName(hero_modifier[monster_attacking])
 
+class Fight:
+    def __init__(self):
+        #self.monster = monster_type
+        self.runds = 0
+        self.hero_attack = []
+        self.monster_attack = []
+
     def fight(self, item, monster_attacking):
-        dict_ = makeDict(item_stats[item])
-        new_stats = copy.deepcopy(self.stats)
-        new_stats.add(item_stats[item])
-        
+        stat_dict_ = makeDict(item_stats[item])
+        new_stats = copy.deepcopy(hero_.stats)
+        new_stats.add(stat_dict_)
+        #rounds = 0
         while True:
-            self.HP -=  monster_attacking.getAttack(self)
-            if not self.HP > 0:
-                self.dead = True
-                return
-            monster_attacking.HP -= self.getAttack(monster_attacking)
+            self.monster_attack.append(monster_attacking.getAttack(hero_))
+            hero_.HP -= monster_attacking.getAttack(hero_)
+            print(self.monster_attack)
+            if not hero_.HP > 0:
+                hero_.dead = True
+                return 1 #go to you_dead.html
+            self.hero_attack.append(hero_.getAttack(monster_attacking))
+            monster_attacking.HP -= hero_.getAttack(monster_attacking)
+            print(self.hero_attack)
+            self.runds += 1
             if not monster_attacking.HP > 0:
                 monster_attacking.dead = True
-                return
+                return 
+
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-votes = 0
+num_of_monsters = 5
 hero_ = Hero()
 
 def check_minus(val):
@@ -151,6 +183,7 @@ def story():
         if request.form['name'] == "Roll the dice!":
             hero_.stat_points = random.randint(20, 35)
             hero_.HP = random.randint(80, 100)
+            hero_.collected_items = ""
 
         if request.form['name'] == "str_plus" and check_plus(hero_.stat_points, hero_.stats.strength):
             hero_.stat_points -= 1
@@ -198,15 +231,64 @@ def hall():
 
 @app.route("/room01/")
 def room01():
+    '''if rand(0-10) < num_of_monsters:
+        num_of_monsters -=1
+
+        return render_template("fight.html", hero=hero_)
+        if num_of_monsters==0:
+            you_win()'''
     return render_template("room01.html", hero=hero_)
+
+def you_win():
+    render_template("you_won.html", hero=hero_)
     
 @app.route("/pick_item", methods=["POST"])
-def upvote():
+def pick_item():
     item = str(request.form)
     item = item[item.find("(")+4 : item.find(",")-1]
     hero_.addItem(item)
     return str(hero_.collected_items)
 
+@app.route("/fight/")
+def fight():
+    return render_template("fight.html", hero=hero_)
+
+monster_type = MonsterType.Skeleton
+@app.route("/pick_weapon", methods=["POST"])
+def pick_weapon():
+    item = str(request.form)
+    item = item[item.find("(")+4 : item.find(",")-1]
+    print(item)
+    text = monster_attack(monster_type,item)
+    #text += str(item_text[item])
+    print(text)
+    return text
+
+def monster_attack(monster_type,item):
+    monster_attacking_ = Monster(monster_type)
+    fight_ = Fight()
+    dead = fight_.fight(item,monster_attacking_)
+    if dead:
+        return 'you dead'
+    desc = ''
+    for x in len(fight_.runds):
+        print(fight_.monster_attack)
+        txt ='The '+str(monster_attacking_)+' attacks for '+str(fight_.monster_attack[x])+'!'+'\nYou attack and deal '+str(fight_.hero_attack[x])+' damage!'+'\n'
+        desc += txt
+    
+    print(desc)
+    return desc
+    #hero_.fight(item, monster_attacking_)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
+'''monsters rutine:
+num_of_monsters = 5
+    at entry to each monster_enabled room:
+    if rand(0-10) < num_of_monsters:
+        num_of_monsters -=1
+        monster_attack()
+        if num_of_monsters==0:
+            you_win()'''
