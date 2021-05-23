@@ -137,34 +137,6 @@ class Hero:
     def getAttack(self, monster_attacking):
         return 10 + randrange(self.attack_range) + self.stats.getByName(hero_modifier[monster_attacking.type])
 
-class Fight:
-    def __init__(self):
-        #self.monster = monster_type
-        self.runds = 0
-        self.hero_attack = []
-        self.monster_attack = []
-
-    def fight(self, item, monster_attacking):
-        stat_dict_ = makeDict(item_stats[item])
-        new_stats = copy.deepcopy(hero_.stats)
-        new_stats.add(stat_dict_)
-        #rounds = 0
-        while True:
-            self.monster_attack.append(monster_attacking.getAttack(hero_))
-            hero_.HP -= monster_attacking.getAttack(hero_)
-            print(self.monster_attack)
-            if not hero_.HP > 0:
-                hero_.dead = True
-                return 1 #go to you_dead.html
-            self.hero_attack.append(hero_.getAttack(monster_attacking))
-            monster_attacking.HP -= hero_.getAttack(monster_attacking)
-            print(self.hero_attack)
-            self.runds += 1
-            if not monster_attacking.HP > 0:
-                monster_attacking.dead = True
-                return 
-
-
 @app.route("/")
 def home():
     return render_template("index.html")
@@ -187,9 +159,12 @@ def story():
         if request.form['name'] == "Let's go!" and hero_.HP != 0:
             return render_template("enter.html", inventory = item_stats, hero=hero_)
         if request.form['name'] == "Roll the dice!":
+            hero_.stats = Stats()
+            
             hero_.stat_points = random.randint(20, 35)
             hero_.HP = random.randint(80, 100)
             hero_.collected_items = ""
+            hero_.items = []
 
         if request.form['name'] == "str_plus" and check_plus(hero_.stat_points, hero_.stats.strength):
             hero_.stat_points -= 1
@@ -237,12 +212,16 @@ def hall():
 
 @app.route("/room01/")
 def room01():
-    '''if rand(0-10) < num_of_monsters:
+    # tymczasowo
+    if random.randint(0,10) > -1:
+        #num_of_monsters:
+        global num_of_monsters
         num_of_monsters -=1
+        print("FIGHT RENDER")
 
         return render_template("fight.html", hero=hero_)
         if num_of_monsters==0:
-            you_win()'''
+            you_win()
     return render_template("room01.html", hero=hero_)
 
 def you_win():
@@ -259,7 +238,7 @@ def pick_item():
 def fight():
     return render_template("fight.html", hero=hero_)
 
-monster_type = MonsterType.Skeleton
+monster_type = MonsterType.Vampire
 @app.route("/pick_weapon", methods=["POST"])
 def pick_weapon():
     item = str(request.form)
@@ -267,24 +246,34 @@ def pick_weapon():
     print(item)
     text = monster_attack(monster_type,item)
     #text += str(item_text[item])
-    print(text)
+    #print(text)
     return text
 
+           
 def monster_attack(monster_type,item):
-    monster_attacking_ = Monster(monster_type)
-    fight_ = Fight()
-    dead = fight_.fight(item,monster_attacking_)
-    if dead:
-        return 'you dead'
-    desc = ''
-    for x in range(fight_.runds):
-        print(fight_.monster_attack)
-        txt ='The '+str(monster_attacking_.name)+' attacks for '+str(fight_.monster_attack[x])+'!'+'\nYou attack and deal '+str(fight_.hero_attack[x])+' damage!'+'\n'
-        desc += txt
-    
-    print(desc)
-    return desc
-    #hero_.fight(item, monster_attacking_)
+    monster_attacking = Monster(monster_type)
+    # czy po uzyciu itemu do walki ma byc on usuwany z inventory
+    # todo: dodac uaktualnianie HP w bocznym pasku
+    texts = []
+    while hero_.HP > 0 and monster_attacking.HP > 0:
+            
+        monster_att = monster_attacking.getAttack(hero_)
+        texts.append('The ' + str(monster_attacking.name)+' attacks for '+str(monster_att)+'!')
+        hero_.HP -= monster_att
+            
+        if not hero_.HP > 0:
+            hero_.dead = True
+            texts.append('You are DEAD')
+            return '<br/>'.join(texts)
+            
+        hero_att = hero_.getAttack(monster_attacking)
+        texts.append('You attack and deal '+str(hero_att)+' damage!')
+        monster_attacking.HP -= hero_att
+            
+        if not monster_attacking.HP > 0:
+            monster_attacking.dead = True
+            texts.append('Monster is DEAD. Good job!')
+            return '<br/>'.join(texts)
 
 
 if __name__ == "__main__":
