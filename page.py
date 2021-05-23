@@ -51,6 +51,10 @@ class MonsterType(enum.Enum):
 	Skeleton = 1
     
 
+monster_names = {MonsterType.Vampire:"Vampire", MonsterType.Ghost:"Ghost", MonsterType.Ghoul:"Ghoul",\
+              MonsterType.Zombie:"Zombie", MonsterType.Skeleton:"Skeleton"}
+
+
 monster_hp = {MonsterType.Vampire:30, MonsterType.Ghost:18, MonsterType.Ghoul:12,\
               MonsterType.Zombie:9, MonsterType.Skeleton:3}  
 
@@ -61,6 +65,7 @@ monster_modifier = {MonsterType.Vampire:"dexterity", MonsterType.Ghost:"wisdom",
 hero_modifier = {MonsterType.Vampire:"charisma", MonsterType.Ghost:"wisdom",\
                     MonsterType.Ghoul:"strength", MonsterType.Zombie:"dexterity",\
                     MonsterType.Skeleton:"strength"}
+
                     
 item_stats = {"wooden bat":{"dexterity":5,"constitution":4,"charisma":3},\
               "thin stick":{"dexterity":2,"constitution":3,"charisma":4},\
@@ -94,6 +99,7 @@ item_text = {"wooden bat":"You grab the wooden bat and take a swing at the monst
 class Monster:
     def __init__(self, type):
         self.type = type
+        self.name = monster_names[type]
         self.HP = monster_hp[type]
         self.dead = False
 
@@ -128,8 +134,8 @@ class Hero:
         #dict_ = makeDict(item_stats[item])
         #self.stats.add(dict_)
         
-    def getAttack(self, monster_attacking):    
-        return 10 + randrange(self.attack_range) + self.stats.getByName(hero_modifier[monster_attacking])
+    def getAttack(self, monster_attacking):
+        return 10 + randrange(self.attack_range) + self.stats.getByName(hero_modifier[monster_attacking.type])
 
 class Fight:
     def __init__(self):
@@ -271,9 +277,9 @@ def monster_attack(monster_type,item):
     if dead:
         return 'you dead'
     desc = ''
-    for x in len(fight_.runds):
+    for x in range(fight_.runds):
         print(fight_.monster_attack)
-        txt ='The '+str(monster_attacking_)+' attacks for '+str(fight_.monster_attack[x])+'!'+'\nYou attack and deal '+str(fight_.hero_attack[x])+' damage!'+'\n'
+        txt ='The '+str(monster_attacking_.name)+' attacks for '+str(fight_.monster_attack[x])+'!'+'\nYou attack and deal '+str(fight_.hero_attack[x])+' damage!'+'\n'
         desc += txt
     
     print(desc)
