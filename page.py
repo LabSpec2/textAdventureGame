@@ -245,8 +245,6 @@ def pick_weapon():
     item = item[item.find("(")+4 : item.find(",")-1]
     print(item)
     text = monster_attack(monster_type,item)
-    #text += str(item_text[item])
-    #print(text)
     return text
 
            
@@ -258,6 +256,7 @@ def monster_attack(monster_type,item):
     while hero_.HP > 0 and monster_attacking.HP > 0:
             
         monster_att = monster_attacking.getAttack(hero_)
+        texts.append(item_text[item])
         texts.append('The ' + str(monster_attacking.name)+' attacks for '+str(monster_att)+'!')
         hero_.HP -= monster_att
             
