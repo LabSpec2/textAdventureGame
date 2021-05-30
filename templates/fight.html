@@ -12,9 +12,9 @@
 		
 	 </p> <!--formularz? -->
 
-		<p id="fight"><br>
-			
-
+		<p id="fight"></p><br>
+        <p id="comeback" style="visibility: hidden;" align="center"><a href="/{{room}}"><button class="big_buttons" style="width: 40%;">Come back to {{room}}.... </button></a></p>
+		
 	</div>
 
 
@@ -34,6 +34,7 @@
 					request.onload = () => {
 						const response = request.responseText;
 						document.getElementById('fight').innerHTML = response;
+                        document.getElementById("comeback").style.visibility = "visible";
 					}; 
 					request.send(button.name);
 					

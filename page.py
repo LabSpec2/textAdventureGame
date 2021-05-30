@@ -97,6 +97,10 @@ item_text = {"wooden bat":"You grab the wooden bat and take a swing at the monst
               "pillow":"It might not be what you would wish you had, but in desperate times... The geese-featered pillow is pretty heavy!\n"}
 
 
+# global variable, that keeps last visited room
+last_visited = ""
+
+
 class Monster:
     def __init__(self, type):
         self.type = type
@@ -249,23 +253,11 @@ def monster_attack(monster_type, item):
             texts.append('Monster is DEAD. Good job!')
             return '<br/>'.join(texts)
 
-@app.route("/room01/")
-def room01():
-    # tymczasowo
-    if random.randint(0,10) > -1:
-        #num_of_monsters:
-        global num_of_monsters
-        num_of_monsters -=1
-        print("FIGHT RENDER")
 
-        return render_template("fight.html", hero=hero_)
-        if num_of_monsters==0:
-            you_win()
-    return render_template("room01.html", hero=hero_)
 
 @app.route("/fight/")
-def fight():
-    return render_template("fight.html", hero=hero_)
+def fight(room="hall"):
+    return render_template("fight.html", hero=hero_, room=room)
 
 @app.route("/hero/")
 def hero():
@@ -277,8 +269,19 @@ def hall():
 
 @app.route("/library/")
 def library():
+    global last_visited
+    if not last_visited == "library":
+        last_visited = "library"
+        if random.randint(0,10) > 7:
+            return render_template("fight.html", hero=hero_, room="library")
     # tymczasowo
+    # return render_template("library.html", hero=hero_)
+    return redirect(url_for('library_ok'))
+    
+@app.route("/library_ok/")
+def library_ok():
     return render_template("library.html", hero=hero_)
+    
 
 @app.route("/ballroom/")
 def ballroom():
