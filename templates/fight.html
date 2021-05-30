@@ -19,9 +19,14 @@
 
 
 	<script type="text/javascript">
+        var weapon_chosen = Boolean(false);
 		document.addEventListener('DOMContentLoaded', () => {
 			document.querySelectorAll('button').forEach(button => {
 				button.onclick = () => {
+                    if (weapon_chosen)
+                        return;
+                    button.style.color = "red";
+                    weapon_chosen = Boolean(true);
 					const request = new XMLHttpRequest();
 					request.open('POST', `/${button.id}`);
 					request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
