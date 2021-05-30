@@ -66,7 +66,7 @@ hero_modifier = {MonsterType.Vampire:"charisma", MonsterType.Ghost:"wisdom",\
                     MonsterType.Ghoul:"strength", MonsterType.Zombie:"dexterity",\
                     MonsterType.Skeleton:"strength"}
 
-                    
+# Powinno być jeszcze 'book'
 item_stats = {"wooden bat":{"dexterity":5,"constitution":4,"charisma":3},\
               "thin stick":{"dexterity":2,"constitution":3,"charisma":4},\
               "garlic":{"dexterity":0,"constitution":0,"charisma":7},\
@@ -80,6 +80,7 @@ item_stats = {"wooden bat":{"dexterity":5,"constitution":4,"charisma":3},\
               "small painting":{"dexterity":2,"constitution":3,"charisma":1},\
               "old shoe":{"dexterity":2,"constitution":1,"charisma":0},\
               "pillow":{"dexterity":0,"constitution":5,"charisma":0}}
+
 
 item_text = {"wooden bat":"You grab the wooden bat and take a swing at the monster.\n",\
               "thin stick":"The stick seems rather feeble, but you hold it tight and aim for the creature's face.\n",\
@@ -202,13 +203,51 @@ def story():
             hero_.upgrade(makeDict({"charisma": -1}))
         return render_template("hero.html", hero=hero_)
 
-@app.route("/hero/")
-def hero():
-    return render_template("hero.html", hero=hero_)
+def you_win():
+    render_template("you_won.html", hero=hero_)
 
-@app.route("/hall/")
-def hall():
-    return render_template("hall.html", hero=hero_)
+@app.route("/pick_item", methods=["POST"])
+def pick_item():
+    item = str(request.form)
+    item = item[item.find("(") + 4: item.find(",") - 1]
+    hero_.addItem(item)
+    return str(hero_.collected_items)
+
+monster_type = MonsterType.Vampire
+
+@app.route("/pick_weapon", methods=["POST"])
+def pick_weapon():
+    item = str(request.form)
+    item = item[item.find("(") + 4: item.find(",") - 1]
+    print(item)
+    text = monster_attack(monster_type, item)
+    return text
+
+def monster_attack(monster_type, item):
+    monster_attacking = Monster(monster_type)
+    # czy po uzyciu itemu do walki ma byc on usuwany z inventory
+    # todo: dodac uaktualnianie HP w bocznym pasku
+    texts = []
+    while hero_.HP > 0 and monster_attacking.HP > 0:
+
+        monster_att = monster_attacking.getAttack(hero_)
+        texts.append(item_text[item])
+        texts.append('The ' + str(monster_attacking.name) + ' attacks for ' + str(monster_att) + '!')
+        hero_.HP -= monster_att
+
+        if not hero_.HP > 0:
+            hero_.dead = True
+            texts.append('You are DEAD')
+            return '<br/>'.join(texts)
+
+        hero_att = hero_.getAttack(monster_attacking)
+        texts.append('You attack and deal ' + str(hero_att) + ' damage!')
+        monster_attacking.HP -= hero_att
+
+        if not monster_attacking.HP > 0:
+            monster_attacking.dead = True
+            texts.append('Monster is DEAD. Good job!')
+            return '<br/>'.join(texts)
 
 @app.route("/room01/")
 def room01():
@@ -224,56 +263,92 @@ def room01():
             you_win()
     return render_template("room01.html", hero=hero_)
 
-def you_win():
-    render_template("you_won.html", hero=hero_)
-    
-@app.route("/pick_item", methods=["POST"])
-def pick_item():
-    item = str(request.form)
-    item = item[item.find("(")+4 : item.find(",")-1]
-    hero_.addItem(item)
-    return str(hero_.collected_items)
-
 @app.route("/fight/")
 def fight():
     return render_template("fight.html", hero=hero_)
 
-monster_type = MonsterType.Vampire
-@app.route("/pick_weapon", methods=["POST"])
-def pick_weapon():
-    item = str(request.form)
-    item = item[item.find("(")+4 : item.find(",")-1]
-    print(item)
-    text = monster_attack(monster_type,item)
-    return text
+@app.route("/hero/")
+def hero():
+    return render_template("hero.html", hero=hero_)
 
-           
-def monster_attack(monster_type,item):
-    monster_attacking = Monster(monster_type)
-    # czy po uzyciu itemu do walki ma byc on usuwany z inventory
-    # todo: dodac uaktualnianie HP w bocznym pasku
-    texts = []
-    while hero_.HP > 0 and monster_attacking.HP > 0:
-            
-        monster_att = monster_attacking.getAttack(hero_)
-        texts.append(item_text[item])
-        texts.append('The ' + str(monster_attacking.name)+' attacks for '+str(monster_att)+'!')
-        hero_.HP -= monster_att
-            
-        if not hero_.HP > 0:
-            hero_.dead = True
-            texts.append('You are DEAD')
-            return '<br/>'.join(texts)
-            
-        hero_att = hero_.getAttack(monster_attacking)
-        texts.append('You attack and deal '+str(hero_att)+' damage!')
-        monster_attacking.HP -= hero_att
-            
-        if not monster_attacking.HP > 0:
-            monster_attacking.dead = True
-            texts.append('Monster is DEAD. Good job!')
-            return '<br/>'.join(texts)
+@app.route("/hall/")
+def hall():
+    return render_template("hall.html", hero=hero_)
 
+@app.route("/library/")
+def library():
+    # tymczasowo
+    return render_template("library.html", hero=hero_)
+
+@app.route("/ballroom/")
+def ballroom():
+    # tymczasowo
+    return render_template("ballroom.html", hero=hero_)
+
+@app.route("/kitchen/")
+def kitchen():
+    # tymczasowo
+    return render_template("kitchen.html", hero=hero_)
+
+@app.route("/diningroom/")
+def diningroom():
+    # tymczasowo
+    return render_template("diningroom.html", hero=hero_)
+
+@app.route("/livingroom/")
+def livingroom():
+    # tymczasowo
+    return render_template("livingroom.html", hero=hero_)
+
+@app.route("/upstairscorridor/")
+def upstairscorridor():
+    # tymczasowo
+    return render_template("upstairscorridor.html", hero=hero_)
+
+@app.route("/studyroom/")
+def studyroom():
+    # tymczasowo
+    return render_template("studyroom.html", hero=hero_)
+
+@app.route("/masterbedroom/")
+def masterbedroom():
+    # tymczasowo
+    return render_template("masterbedroom.html", hero=hero_)
+
+@app.route("/bathroom/")
+def bathroom():
+    # tymczasowo
+    return render_template("bathroom.html", hero=hero_)
+
+@app.route("/smallcloset/")
+def smallcloset():
+    # tymczasowo
+    return render_template("smallcloset.html", hero=hero_)
+
+@app.route("/guestroom/")
+def guestroom():
+    # tymczasowo
+    return render_template("guestroom.html", hero=hero_)
+
+@app.route("/nannyroom/")
+def nannyroom():
+    # tymczasowo
+    return render_template("nannyroom.html", hero=hero_)
+
+@app.route("/nursery/")
+def nursery():
+    # tymczasowo
+    return render_template("nursery.html", hero=hero_)
+
+@app.route("/girlroom/")
+def girlroom():
+    # tymczasowo
+    return render_template("girlroom.html", hero=hero_)
+
+@app.route("/tinywashroom/")
+def tinywashroom():
+    # tymczasowo
+    return render_template("tinywashroom.html", hero=hero_)
 
 if __name__ == "__main__":
     app.run(debug=True)

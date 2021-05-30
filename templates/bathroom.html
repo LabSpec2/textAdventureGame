@@ -1,0 +1,36 @@
+{% extends "story_template.html" %}
+{% block title %}Room{% endblock %}
+
+{% block content5 %}
+	<div class="main-text">
+		Well, it is a bathroom...there is
+		<button id="wooden bat" name="wooden bat" class="text_buttons">wooden bat</button> in it.</p>
+		
+
+		<p align="center"><a href=/masterbedroom ><button class="small_buttons">Go to Master Bedroom</button></a></p>
+		<p align="center"><a href="/"><button class="small_buttons">Go back</button></a></p>
+	
+	</div>
+
+
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', () => {
+			document.querySelectorAll('button').forEach(button => {
+				button.onclick = () => {
+					const request = new XMLHttpRequest();
+					request.open('POST', `/pick_item`);
+					request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					
+					request.onload = () => {
+						const response = request.responseText;
+						document.getElementById('items').innerHTML = response;
+					}; 
+					request.send(button.id);
+					
+				};
+			});
+		});
+	</script>
+
+{% endblock %}
+

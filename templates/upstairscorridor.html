@@ -1,0 +1,42 @@
+{% extends "story_template.html" %}
+{% block title %}Room{% endblock %}
+
+{% block content5 %}
+	<div class="main-text">
+		Well, it is a upstairs corridor...there is
+		<button id="old shoe" name="old shoe" class="text_buttons">old shoe</button> in it.</p>
+
+		
+		<p align="center"><a href=/hall ><button class="small_buttons">Go to Hall</button></a></p>
+		<p align="center"><a href=/studyroom ><button class="small_buttons">Go to Study Room</button></a></p>
+		<p align="center"><a href=/masterbedroom ><button class="small_buttons">Go to Master Bedroom</button></a></p>
+		<p align="center"><a href=/girlroom ><button class="small_buttons">Go to Girl Bedroom</button></a></p>
+		<p align="center"><a href=/tinywashroom ><button class="small_buttons">Go to Tiny Washroom</button></a></p>
+		<p align="center"><a href=/nannyroom ><button class="small_buttons">Go to Nanny Room</button></a></p>
+		<p align="center"><a href=/guestroom ><button class="small_buttons">Go to Guest Room</button></a></p>
+		<p align="center"><a href="/"><button class="small_buttons">Go back</button></a></p>
+	
+	</div>
+
+
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', () => {
+			document.querySelectorAll('button').forEach(button => {
+				button.onclick = () => {
+					const request = new XMLHttpRequest();
+					request.open('POST', `/pick_item`);
+					request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+					
+					request.onload = () => {
+						const response = request.responseText;
+						document.getElementById('items').innerHTML = response;
+					}; 
+					request.send(button.id);
+					
+				};
+			});
+		});
+	</script>
+
+{% endblock %}
+
