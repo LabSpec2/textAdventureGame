@@ -23,11 +23,11 @@ class Stats:
         self.charisma = 0
         
     def add(self, dict_, max_=10):
-        self.strength =  min(max_, self.strength + dict_["strength"])
-        self.dexterity = min(max_, self.dexterity + dict_["dexterity"])
-        self.constitution = min(max_, self.constitution + dict_["constitution"])
-        self.wisdom = min(max_, self.wisdom + dict_["wisdom"])
-        self.charisma = min(max_, self.charisma + dict_["charisma"])
+        self.strength = min(max_, self.strength + dict_.get("strength", 0))
+        self.dexterity = min(max_, self.dexterity + dict_.get("dexterity", 0))
+        self.constitution = min(max_, self.constitution + dict_.get("constitution", 0))
+        self.wisdom = min(max_, self.wisdom + dict_.get("wisdom", 0))
+        self.charisma = min(max_, self.charisma + dict_.get("charisma", 0))
            
     def getByName(self, name):
         if name == "strength":
