@@ -79,12 +79,17 @@ item_stats = {"wooden bat":{"dexterity":5,"constitution":4,"charisma":3},\
               "plant pot":{"dexterity":1,"constitution":1,"charisma":1},\
               "small painting":{"dexterity":2,"constitution":3,"charisma":1},\
               "old shoe":{"dexterity":2,"constitution":1,"charisma":0},\
+              "old book":{"dexterity":2,"constitution":1,"charisma":0},\
+              "harp string":{"dexterity":2,"constitution":1,"charisma":0},\
+              "broken wineglass":{"dexterity":2,"constitution":1,"charisma":0},\
+              "shards of glass":{"dexterity":2,"constitution":1,"charisma":0},\
+              "figurine":{"dexterity":2,"constitution":1,"charisma":0},\
               "pillow":{"dexterity":0,"constitution":5,"charisma":0}}
 
 
 item_text = {"wooden bat":"You grab the wooden bat and take a swing at the monster.\n",\
               "thin stick":"The stick seems rather feeble, but you hold it tight and aim for the creature's face.\n",\
-              "garlic":"You clench the garlick in your fist and attempt to shove it in the monster's mouth.\n",\
+              "garlic":"You clench the garlic in your fist and attempt to shove it in the monster's mouth.\n",\
               "salt":"Desperatly, you grab the pich of salt and throw it at the monster.\n",\
               "aspen-wood stake":"You take the wooden stake and aim straigth for the monsters heart.\n",\
               "silver fork":"The fork is tiny, but the silver will surly hurt the creature\n",\
@@ -94,6 +99,17 @@ item_text = {"wooden bat":"You grab the wooden bat and take a swing at the monst
               "plant pot":"The plant pot might be a decent ranged weapon, but your not sure how it will do in meele. You grab it regardless\n",\
               "small painting":"Luckily, this painting was made on a wooden board. You wack the creature right in the face.\n",\
               "old shoe":"You grab the old shoe like a mace. It might be good, it has iron nails in the sole\n",\
+              "old book":"You grab the... old book? Well, that might end up poorly. Desperatly, you throw it at the monster\n",\
+              "harp string":"\n",\
+              "broken wineglass":"\n",\
+              "shards of glass":"\n",\
+              "figurine":"\n",\
+              "":"\n",\
+              "":"\n",\
+              "":"\n",\
+              "":"\n",\
+              "":"\n",\
+              "":"\n",\
               "pillow":"It might not be what you would wish you had, but in desperate times... The geese-featered pillow is pretty heavy!\n"}
 
 
@@ -217,6 +233,7 @@ def pick_item():
     hero_.addItem(item)
     return str(hero_.collected_items)
 
+# todo: change randomly
 monster_type = MonsterType.Vampire
 
 @app.route("/pick_weapon", methods=["POST"])
@@ -232,10 +249,10 @@ def monster_attack(monster_type, item):
     # czy po uzyciu itemu do walki ma byc on usuwany z inventory
     # todo: dodac uaktualnianie HP w bocznym pasku
     texts = []
+    texts.append(item_text[item])
     while hero_.HP > 0 and monster_attacking.HP > 0:
 
         monster_att = monster_attacking.getAttack(hero_)
-        texts.append(item_text[item])
         texts.append('The ' + str(monster_attacking.name) + ' attacks for ' + str(monster_att) + '!')
         hero_.HP -= monster_att
 
@@ -272,7 +289,8 @@ def library():
     global last_visited
     if not last_visited == "library":
         last_visited = "library"
-        if random.randint(0,10) > 7:
+        if random.randint(0,10) > 7:            
+            monster_type = MonsterType.Ghoul # todo: różne (losowe?) potwory w różnych pomieszczeniach
             return render_template("fight.html", hero=hero_, room="library")
     # tymczasowo
     # return render_template("library.html", hero=hero_)

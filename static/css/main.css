@@ -114,8 +114,8 @@
 		background-color: rgba(0, 0, 0, 0.6);
 		border-radius: 12px;
 		color: rgba(255, 255, 255, 0.7);
-		line-height: 1.5;
-		padding: 0.5rem 1rem;
+		line-height: 1.2;
+		padding: 0.1rem 1rem;
 		text-align: center;
 		height:50px;
 		width:150px
@@ -138,6 +138,16 @@
 		text-align: left;
 			font-family: Luminari, fantasy;
 		}
+		.fake_buttons {
+			background-color: transparent; 
+			border: 0; 
+			padding: 0;
+			font-size: 16px;
+		   color:  transparent;
+		   line-height: 1.5;
+		   text-align: left;
+			   font-family: Luminari, fantasy;
+		   }
 		.small_text_buttons {
 		 background-color: transparent; 
 		 border: 0; 

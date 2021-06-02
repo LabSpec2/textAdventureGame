@@ -10,9 +10,10 @@
 		<button id="pick_weapon" name="{{x}}" class="small_text_buttons">{{x}}</button> 
 			{% endfor %}
 		
-	 </p> <!--formularz? -->
-
+	 </p> 
 		<p id="fight"></p><br>
+
+
         <p id="comeback" style="visibility: hidden;" align="center"><a href="/{{room}}"><button class="big_buttons" style="width: 40%;">Come back to {{room}}.... </button></a></p>
 		
 	</div>
@@ -42,6 +43,17 @@
 			});
 		});
 	</script>
+
+<!-- skrypt do wyświetlania każdego ataku osobno
+
+<script type="text/javascript">  
+	var content = document.getElementById("fight_by_line");
+	content.style.display="none";
+	setTimeout(function(){
+	  content.style.display="block";
+	}, 500);
+  </script>
+-->
 
 {% endblock %}
 
