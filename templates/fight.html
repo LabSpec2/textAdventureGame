@@ -3,11 +3,14 @@
 
 {% block content5 %}
 	<div class="main-text">
-		<p >Monster jumps at you! <br>
+		<p >
+			The door opens slowly... <br>Befor it is fully ajar, a sudden movement catches your attention. <br>You turn that way, and can now see a {{monster}}, ready to jump at you!
+			 <br><br>
 		Quick! Pick a weapon! <br>
 
 		{% for x in hero.items %}
 		<button id="pick_weapon" name="{{x}}" class="small_text_buttons">{{x}}</button> 
+
 			{% endfor %}
 		
 	 </p> 

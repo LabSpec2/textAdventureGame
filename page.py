@@ -55,7 +55,7 @@ monster_names = {MonsterType.Vampire:"Vampire", MonsterType.Ghost:"Ghost", Monst
               MonsterType.Zombie:"Zombie", MonsterType.Skeleton:"Skeleton"}
 
 
-monster_hp = {MonsterType.Vampire:30, MonsterType.Ghost:18, MonsterType.Ghoul:12,\
+monster_hp = {MonsterType.Vampire:30, MonsterType.Ghost:9, MonsterType.Ghoul:12,\
               MonsterType.Zombie:9, MonsterType.Skeleton:3}  
 
 monster_modifier = {MonsterType.Vampire:"dexterity", MonsterType.Ghost:"wisdom",\
@@ -63,54 +63,87 @@ monster_modifier = {MonsterType.Vampire:"dexterity", MonsterType.Ghost:"wisdom",
                     MonsterType.Skeleton:"dexterity"}
 
 hero_modifier = {MonsterType.Vampire:"charisma", MonsterType.Ghost:"wisdom",\
-                    MonsterType.Ghoul:"strength", MonsterType.Zombie:"dexterity",\
-                    MonsterType.Skeleton:"strength"}
+                    MonsterType.Ghoul:"constitution", MonsterType.Zombie:"constitution",\
+                    MonsterType.Skeleton:"dexterity"}
+'''
+                    {MonsterType.Vampire:"CHA", MonsterType.Ghost:"CHA",\
+                    MonsterType.Ghoul:"CON", MonsterType.Zombie:"CON",\
+                    MonsterType.Skeleton:"DEX"}
 
-# Powinno być jeszcze 'book'
-item_stats = {"wooden bat":{"dexterity":5,"constitution":4,"charisma":3},\
-              "thin stick":{"dexterity":2,"constitution":3,"charisma":4},\
-              "garlic":{"dexterity":0,"constitution":0,"charisma":7},\
-              "salt":{"dexterity":0,"constitution":0,"charisma":0},\
-              "aspen-wood stake":{"dexterity":0,"constitution":1,"charisma":9},\
-              "silver fork":{"dexterity":4,"constitution":2,"charisma":5},\
-              "apple":{"dexterity":0,"constitution":1,"charisma":0},\
-              "empty can":{"dexterity":1,"constitution":2,"charisma":0},\
-              "broken umbrella":{"dexterity":1,"constitution":2,"charisma":0},\
-              "plant pot":{"dexterity":1,"constitution":1,"charisma":1},\
-              "small painting":{"dexterity":2,"constitution":3,"charisma":1},\
-              "old shoe":{"dexterity":2,"constitution":1,"charisma":0},\
-              "old book":{"dexterity":2,"constitution":1,"charisma":0},\
-              "harp string":{"dexterity":2,"constitution":1,"charisma":0},\
-              "broken wineglass":{"dexterity":2,"constitution":1,"charisma":0},\
-              "shards of glass":{"dexterity":2,"constitution":1,"charisma":0},\
-              "figurine":{"dexterity":2,"constitution":1,"charisma":0},\
-              "pillow":{"dexterity":0,"constitution":5,"charisma":0}}
+                    good: 3,5,1
+                    decent: 2,3,0
+                    dex-decent:3.2.0
+                    not-pathetic: 2.1.1
+                    bad: 1,0,0
+                    magic-good:2.1.4
+'''
+item_stats = {"wooden rod":{"dexterity":3,"constitution":5,"charisma":1},\
+              "broken umbrella":{"dexterity":2,"constitution":3,"charisma":0},\
+              "shards of glass":{"dexterity":3,"constitution":2,"charisma":0},\
+              "old book":{"dexterity":1,"constitution":0,"charisma":0},\
+              "broken wineglass":{"dexterity":3,"constitution":2,"charisma":0},\
+              "harp string":{"dexterity":3,"constitution":2,"charisma":0},\
+              "garlic":{"dexterity":2,"constitution":0,"charisma":4},\
+              "apple":{"dexterity":1,"constitution":0,"charisma":0},\
+              "salt":{"dexterity":2,"constitution":0,"charisma":4},\
+              "silver fork":{"dexterity":2,"constitution":0,"charisma":4},\
+              "aspen-wood rod":{"dexterity":2,"constitution":0,"charisma":4},\
+              "figurine":{"dexterity":1,"constitution":0,"charisma":0},\
+              "rolled carpet":{"dexterity":2,"constitution":3,"charisma":0},\
+              "thin planks":{"dexterity":2,"constitution":1,"charisma":1},\
+              "quill":{"dexterity":1,"constitution":0,"charisma":0},\
+              "handkerchief":{"dexterity":1,"constitution":0,"charisma":0},\
+              "copper pipe":{"dexterity":3,"constitution":5,"charisma":1},\
+              "shards of mirror":{"dexterity":3,"constitution":2,"charisma":0},\
+              "silk robe":{"dexterity":1,"constitution":0,"charisma":0},\
+              "vase":{"dexterity":2,"constitution":1,"charisma":1},\
+              "frayed hat":{"dexterity":1,"constitution":0,"charisma":0},\
+              "solid cane":{"dexterity":3,"constitution":5,"charisma":1},\
+              "pillow":{"dexterity":2,"constitution":3,"charisma":0},\
+              "wooden knob":{"dexterity":2,"constitution":1,"charisma":1},\
+              "pacifier":{"dexterity":1,"constitution":0,"charisma":0},\
+              "small painting":{"dexterity":2,"constitution":1,"charisma":1},\
+              "stuffed bunny":{"dexterity":2,"constitution":3,"charisma":0},\
+              "little blanket":{"dexterity":2,"constitution":1,"charisma":1},\
+              "wooden horse":{"dexterity":3,"constitution":5,"charisma":1},\
+              "porcelain doll":{"dexterity":2,"constitution":1,"charisma":1},\
+              "caved jug":{"dexterity":2,"constitution":1,"charisma":1},\
+              "thin sticks":{"dexterity":2,"constitution":1,"charisma":1}}
 
 
-item_text = {"wooden bat":"You grab the wooden bat and take a swing at the monster.\n",\
-              "thin stick":"The stick seems rather feeble, but you hold it tight and aim for the creature's face.\n",\
-              "garlic":"You clench the garlic in your fist and attempt to shove it in the monster's mouth.\n",\
-              "salt":"Desperatly, you grab the pich of salt and throw it at the monster.\n",\
-              "aspen-wood stake":"You take the wooden stake and aim straigth for the monsters heart.\n",\
-              "silver fork":"The fork is tiny, but the silver will surly hurt the creature\n",\
-              "apple":"You grab the... apple? Well, that might end up poorly. Desperatly, you throw it at the monster\n",\
-              "empty can":"You grab the empty can and try to aim its sharp edge towards the monster.\n",\
+
+item_text = {"wooden rod":"You get a good grab at the solid wooden rod and take a swing at the monster.\n",\
               "broken umbrella":"You grab the umbrella and point its spiky end at the creature.\n",\
-              "plant pot":"The plant pot might be a decent ranged weapon, but your not sure how it will do in meele. You grab it regardless\n",\
+              "shards of glass":"Shards of glass are a bit awkward to hold, but they are sharp and can surly hurt the creature!\n",\
+              "old book":"You grab the... old book? Well, that might end up poorly. Desperately, you throw it at the monster\n",\
+              "broken wineglass":"Broken wineglass is a bit awkward to hold, but it's sharp and can surly hurt the creature!\n",\
+              "harp string":"You grab the string desperately and lash it at the creature. It has quite some reach!\n",\
+              "garlic":"You clench the garlic in your fist and attempt to shove it in the monster's mouth.\n",\
+              "apple":"You grab the... apple? Well, that might end up poorly. Desperately, you throw it at the monster\n",\
+              "salt":"Desperately, you grab the pinch of salt and throw it at the monster. Salt hurts them, right? Right?\n",\
+              "silver fork":"The fork is tiny, but the silver will surly hurt the creature\n",\
+              "aspen-wood rod":"Hey, it's basically an aspen-wood stake! You take the wooden rod and aim straight for the monsters heart.\n",\
+              "figurine":"You grab the... porcelain figurine? Well, that might end up poorly. Desperately, you throw it at the monster\n",\
+              "rolled carpet":"It might not be what you would wish you had, but in desperate times... The thick threaded carpet is pretty heavy!\n",\
+              "thin planks":"The plank seems rather feeble, but you hold it tight and aim for the creature's face.\n",\
+              "quill":"You grab the... quill? Well, that might end up poorly. Desperately, you throw it at the monster\n",\
+              "handkerchief":"You grab the... handkerchief? Well, that might end up poorly. Desperately, you throw it at the monster\n",\
+              "copper pipe":"You get a good grab at the copper pipe and take a swing at the monster.\n",\
+              "shards of mirror":"Shards of mirror are a bit awkward to hold, but they are sharp and can surly hurt the creature!\n",\
+              "silk robe":"You grab the... silk robe? Well, that might end up poorly. Desperately, you brandish it at the monster\n",\
+              "vase":"The vase might be a decent ranged weapon, but you're not sure how it will do in melee. You grab it regardless.\n",\
+              "frayed hat":"You grab the... frayed hat? Well, that might end up poorly. Desperately, you brandish it at the monster\n",\
+              "solid cane":"You get a good grab at the solid cane and take a swing at the monster.\n",\
+              "pillow":"It might not be what you would wish you had, but in desperate times... The geese-featered pillow is pretty heavy!\n",\
+              "wooden knob":"You clench the small knob in your fist and try to use it as a knuckle-duster.\n",\
+              "pacifier":"You grab the... pacifier? Well, that might end up poorly. Desperately, you throw it at the monster\n",\
               "small painting":"Luckily, this painting was made on a wooden board. You wack the creature right in the face.\n",\
-              "old shoe":"You grab the old shoe like a mace. It might be good, it has iron nails in the sole\n",\
-              "old book":"You grab the... old book? Well, that might end up poorly. Desperatly, you throw it at the monster\n",\
-              "harp string":"\n",\
-              "broken wineglass":"\n",\
-              "shards of glass":"\n",\
-              "figurine":"\n",\
-              "":"\n",\
-              "":"\n",\
-              "":"\n",\
-              "":"\n",\
-              "":"\n",\
-              "":"\n",\
-              "pillow":"It might not be what you would wish you had, but in desperate times... The geese-featered pillow is pretty heavy!\n"}
+              "stuffed bunny":"You grab the stuffed bunny... Well it's certainly an unusual weapon, but the toy is stuffed with sawdust and surprisingly heavy!\n",\
+              "little blanket":"Every child knows that hiding under the blanket makes the monsters disappear... Maybe flailing it at them works as well?\n",\
+              "wooden horse":"You grab a wooden horse. It’s shape is a bit awkward, but it is a solid piece of wood to hit the monster with.\n",\
+              "porcelain doll":"You grab the... porcelain doll? Well, you surely find it unsettling, maybe so will the creature?\n",\
+              "caved jug":"The jug might be a decent ranged weapon, but you're not sure how it will do in melee. You grab it regardless.\n",\
+              "thin sticks":"The stick seems rather feeble, but you hold it tight and aim for the creature's face.\n"}
 
 
 # global variable, that keeps last visited room
@@ -246,7 +279,7 @@ def pick_weapon():
 
 def monster_attack(monster_type, item):
     monster_attacking = Monster(monster_type)
-    # czy po uzyciu itemu do walki ma byc on usuwany z inventory
+    # czy po uzyciu itemu do walki ma byc on usuwany z inventory 
     # todo: dodac uaktualnianie HP w bocznym pasku
     texts = []
     texts.append(item_text[item])
@@ -274,7 +307,7 @@ def monster_attack(monster_type, item):
 
 @app.route("/fight/")
 def fight(room="hall"):
-    return render_template("fight.html", hero=hero_, room=room)
+    return render_template("fight.html", hero=hero_, room=room, monster = str(monster_type)[12:])
 
 @app.route("/hero/")
 def hero():
