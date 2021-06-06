@@ -269,12 +269,16 @@ def pick_item():
 # todo: change randomly
 monster_type = MonsterType.Vampire
 
+# ponizsza lista jest po to, zeby czesciej byly wybierane slabsze monstery
+monster_type_list = [MonsterType.Vampire, MonsterType.Ghost, MonsterType.Ghoul, MonsterType.Zombie, \
+                     MonsterType.Zombie, MonsterType.Skeleton, MonsterType.Skeleton, MonsterType.Skeleton]
+
 @app.route("/pick_weapon", methods=["POST"])
 def pick_weapon():
     item = str(request.form)
     item = item[item.find("(") + 4: item.find(",") - 1]
-    print(item)
-    # tu zmieniac randomly
+    global monster_type
+    #monster_type = random.choice(monster_type_list)
     text = monster_attack(monster_type, item)
     return text
 
@@ -305,9 +309,10 @@ def monster_attack(monster_type, item):
             return '<br/>'.join(texts)
 
 
-
 @app.route("/fight/")
 def fight(room="hall"):
+    global monster_type
+    monster_type = random.choice(monster_type_list) 
     return render_template("fight.html", hero=hero_, room=room, monster = str(monster_type)[12:])
 
 @app.route("/hero/")
@@ -320,10 +325,11 @@ def hall():
 
 
 def check_if_monster_attack(name):
-    global last_visited
+    global last_visited, monster_type
     if not last_visited == name:
         last_visited = name
-        if random.randint(0,10) > 7:            
+        if random.randint(0,10) > 7:
+            monster_type = random.choice(monster_type_list)        
             return True
     return False
 
@@ -331,7 +337,7 @@ def check_if_monster_attack(name):
 @app.route("/library/")
 def library():
     if check_if_monster_attack("library"):
-        return render_template("fight.html", hero=hero_, room="library")
+        return render_template("fight.html", hero=hero_, room="library", monster = str(monster_type)[12:])
     return redirect(url_for('library_ok'))
     
 @app.route("/library_ok/")
@@ -341,7 +347,7 @@ def library_ok():
 @app.route("/ballroom/")
 def ballroom():
     if check_if_monster_attack("ballroom"):
-        return render_template("fight.html", hero=hero_, room="ballroom")
+        return render_template("fight.html", hero=hero_, room="ballroom", monster = str(monster_type)[12:])
     return redirect(url_for('ballroom_ok'))
     
 @app.route("/ballroom_ok/")
@@ -351,7 +357,7 @@ def ballroom_ok():
 @app.route("/kitchen/")
 def kitchen():
     if check_if_monster_attack("kitchen"):
-        return render_template("fight.html", hero=hero_, room="kitchen")
+        return render_template("fight.html", hero=hero_, room="kitchen", monster = str(monster_type)[12:])
     return redirect(url_for('kitchen_ok'))
     
 @app.route("/kitchen_ok/")
@@ -361,7 +367,7 @@ def kitchen_ok():
 @app.route("/diningroom/")
 def diningroom():
     if check_if_monster_attack("diningroom"):
-        return render_template("fight.html", hero=hero_, room="diningroom")
+        return render_template("fight.html", hero=hero_, room="diningroom", monster = str(monster_type)[12:])
     return redirect(url_for('diningroom_ok'))
 
 @app.route("/diningroom_ok/")
@@ -371,7 +377,7 @@ def diningroom_ok():
 @app.route("/livingroom/")
 def livingroom():
     if check_if_monster_attack("livingroom"):
-        return render_template("fight.html", hero=hero_, room="livingroom")
+        return render_template("fight.html", hero=hero_, room="livingroom", monster = str(monster_type)[12:])
     return redirect(url_for('livingroom_ok'))
     
 @app.route("/livingroom_ok/")
@@ -387,7 +393,7 @@ def upstairscorridor():
 @app.route("/studyroom/")
 def studyroom():
     if check_if_monster_attack("studyroom"):
-        return render_template("fight.html", hero=hero_, room="studyroom")
+        return render_template("fight.html", hero=hero_, room="studyroom", monster = str(monster_type)[12:])
     return redirect(url_for('studyroom_ok'))
 
 @app.route("/studyroom_ok/")
@@ -398,7 +404,7 @@ def studyroom_ok():
 @app.route("/masterbedroom/")
 def masterbedroom():
     if check_if_monster_attack("masterbedroom"):
-        return render_template("fight.html", hero=hero_, room="masterbedroom")
+        return render_template("fight.html", hero=hero_, room="masterbedroom", monster = str(monster_type)[12:])
     return redirect(url_for('masterbedroom_ok'))
     
 @app.route("/masterbedroom_ok/")
@@ -409,7 +415,7 @@ def masterbedroom_ok():
 @app.route("/bathroom/")
 def bathroom():
     if check_if_monster_attack("bathroom"):
-        return render_template("fight.html", hero=hero_, room="bathroom")
+        return render_template("fight.html", hero=hero_, room="bathroom", monster = str(monster_type)[12:])
     return redirect(url_for('bathroom_ok'))
     
 @app.route("/bathroom_ok/")
@@ -421,7 +427,7 @@ def bathroom_ok():
 @app.route("/smallcloset/")
 def smallcloset():
     if check_if_monster_attack("smallcloset"):
-        return render_template("fight.html", hero=hero_, room="smallcloset")
+        return render_template("fight.html", hero=hero_, room="smallcloset", monster = str(monster_type)[12:])
     return redirect(url_for('smallcloset_ok'))
     
 @app.route("/smallcloset_ok/")
@@ -432,7 +438,7 @@ def smallcloset_ok():
 @app.route("/guestroom/")
 def guestroom():
     if check_if_monster_attack("guestroom"):
-        return render_template("fight.html", hero=hero_, room="guestroom")
+        return render_template("fight.html", hero=hero_, room="guestroom", monster = str(monster_type)[12:])
     return redirect(url_for('guestroom_ok'))
 
 @app.route("/guestroom_ok/")
@@ -444,7 +450,7 @@ def guestroom_ok():
 @app.route("/nannyroom/")
 def nannyroom():
     if check_if_monster_attack("nannyroom"):
-        return render_template("fight.html", hero=hero_, room="nannyroom")
+        return render_template("fight.html", hero=hero_, room="nannyroom", monster = str(monster_type)[12:])
     return redirect(url_for('nannyroom_ok'))
 
 @app.route("/nannyroom_ok/")
@@ -455,7 +461,7 @@ def nannyroom_ok():
 @app.route("/nursery/")
 def nursery():
     if check_if_monster_attack("nursery"):
-        return render_template("fight.html", hero=hero_, room="nursery")
+        return render_template("fight.html", hero=hero_, room="nursery", monster = str(monster_type)[12:])
     return redirect(url_for('nursery_ok'))
  
 @app.route("/nursery_ok/")
@@ -466,7 +472,7 @@ def nursery_ok():
 @app.route("/girlroom/")
 def girlroom():
     if check_if_monster_attack("girlroom"):
-        return render_template("fight.html", hero=hero_, room="girlroom")
+        return render_template("fight.html", hero=hero_, room="girlroom", monster = str(monster_type)[12:])
     return redirect(url_for('girlroom_ok'))
        
 @app.route("/girlroom_ok/")
@@ -477,7 +483,7 @@ def girlroom_ok():
 @app.route("/tinywashroom/")
 def tinywashroom():
     if check_if_monster_attack("tinywashroom"):
-        return render_template("fight.html", hero=hero_, room="tinywashroom")
+        return render_template("fight.html", hero=hero_, room="tinywashroom", monster = str(monster_type)[12:])
     return redirect(url_for('tinywashroom_ok'))
 
 @app.route("/tinywashroom_ok/")
