@@ -274,6 +274,7 @@ def pick_weapon():
     item = str(request.form)
     item = item[item.find("(") + 4: item.find(",") - 1]
     print(item)
+    # tu zmieniac randomly
     text = monster_attack(monster_type, item)
     return text
 
@@ -317,101 +318,171 @@ def hero():
 def hall():
     return render_template("hall.html", hero=hero_)
 
+
+def check_if_monster_attack(name):
+    global last_visited
+    if not last_visited == name:
+        last_visited = name
+        if random.randint(0,10) > 7:            
+            return True
+    return False
+
+
 @app.route("/library/")
 def library():
-    global last_visited
-    if not last_visited == "library":
-        last_visited = "library"
-        if random.randint(0,10) > 7:            
-            monster_type = MonsterType.Ghoul # todo: różne (losowe?) potwory w różnych pomieszczeniach
-            return render_template("fight.html", hero=hero_, room="library")
-    # tymczasowo
-    # return render_template("library.html", hero=hero_)
+    if check_if_monster_attack("library"):
+        return render_template("fight.html", hero=hero_, room="library")
     return redirect(url_for('library_ok'))
     
 @app.route("/library_ok/")
 def library_ok():
     return render_template("library.html", hero=hero_)
     
-
 @app.route("/ballroom/")
 def ballroom():
-    # tymczasowo
+    if check_if_monster_attack("ballroom"):
+        return render_template("fight.html", hero=hero_, room="ballroom")
+    return redirect(url_for('ballroom_ok'))
+    
+@app.route("/ballroom_ok/")
+def ballroom_ok():
     return render_template("ballroom.html", hero=hero_)
 
 @app.route("/kitchen/")
 def kitchen():
-    # tymczasowo
+    if check_if_monster_attack("kitchen"):
+        return render_template("fight.html", hero=hero_, room="kitchen")
+    return redirect(url_for('kitchen_ok'))
+    
+@app.route("/kitchen_ok/")
+def kitchen_ok():
     return render_template("kitchen.html", hero=hero_)
 
 @app.route("/diningroom/")
 def diningroom():
-    # tymczasowo
+    if check_if_monster_attack("diningroom"):
+        return render_template("fight.html", hero=hero_, room="diningroom")
+    return redirect(url_for('diningroom_ok'))
+
+@app.route("/diningroom_ok/")
+def diningroom_ok():
     return render_template("diningroom.html", hero=hero_)
 
 @app.route("/livingroom/")
 def livingroom():
-    # tymczasowo
+    if check_if_monster_attack("livingroom"):
+        return render_template("fight.html", hero=hero_, room="livingroom")
+    return redirect(url_for('livingroom_ok'))
+    
+@app.route("/livingroom_ok/")
+def livingroom_ok():
     return render_template("livingroom.html", hero=hero_)
+
 
 @app.route("/upstairscorridor/")
 def upstairscorridor():
-    # tymczasowo
     return render_template("upstairscorridor.html", hero=hero_)
+    
 
 @app.route("/studyroom/")
 def studyroom():
-    # tymczasowo
+    if check_if_monster_attack("studyroom"):
+        return render_template("fight.html", hero=hero_, room="studyroom")
+    return redirect(url_for('studyroom_ok'))
+
+@app.route("/studyroom_ok/")
+def studyroom_ok():
     return render_template("studyroom.html", hero=hero_)
+
 
 @app.route("/masterbedroom/")
 def masterbedroom():
-    # tymczasowo
+    if check_if_monster_attack("masterbedroom"):
+        return render_template("fight.html", hero=hero_, room="masterbedroom")
+    return redirect(url_for('masterbedroom_ok'))
+    
+@app.route("/masterbedroom_ok/")
+def masterbedroom_ok():
     return render_template("masterbedroom.html", hero=hero_)
+    
 
 @app.route("/bathroom/")
 def bathroom():
-    # tymczasowo
+    if check_if_monster_attack("bathroom"):
+        return render_template("fight.html", hero=hero_, room="bathroom")
+    return redirect(url_for('bathroom_ok'))
+    
+@app.route("/bathroom_ok/")
+def bathroom_ok():
     return render_template("bathroom.html", hero=hero_)
+    
+    
 
 @app.route("/smallcloset/")
 def smallcloset():
-    # tymczasowo
+    if check_if_monster_attack("smallcloset"):
+        return render_template("fight.html", hero=hero_, room="smallcloset")
+    return redirect(url_for('smallcloset_ok'))
+    
+@app.route("/smallcloset_ok/")
+def smallcloset_ok():
     return render_template("smallcloset.html", hero=hero_)
+    
 
 @app.route("/guestroom/")
 def guestroom():
-    # tymczasowo
+    if check_if_monster_attack("guestroom"):
+        return render_template("fight.html", hero=hero_, room="guestroom")
+    return redirect(url_for('guestroom_ok'))
+
+@app.route("/guestroom_ok/")
+def guestroom_ok():
     return render_template("guestroom.html", hero=hero_)
+
+
 
 @app.route("/nannyroom/")
 def nannyroom():
-    # tymczasowo
+    if check_if_monster_attack("nannyroom"):
+        return render_template("fight.html", hero=hero_, room="nannyroom")
+    return redirect(url_for('nannyroom_ok'))
+
+@app.route("/nannyroom_ok/")
+def nannyroom_ok():
     return render_template("nannyroom.html", hero=hero_)
+
 
 @app.route("/nursery/")
 def nursery():
-    # tymczasowo
+    if check_if_monster_attack("nursery"):
+        return render_template("fight.html", hero=hero_, room="nursery")
+    return redirect(url_for('nursery_ok'))
+ 
+@app.route("/nursery_ok/")
+def nursery_ok():
     return render_template("nursery.html", hero=hero_)
-
+ 
+    
 @app.route("/girlroom/")
 def girlroom():
-    # tymczasowo
+    if check_if_monster_attack("girlroom"):
+        return render_template("fight.html", hero=hero_, room="girlroom")
+    return redirect(url_for('girlroom_ok'))
+       
+@app.route("/girlroom_ok/")
+def girlroom_ok():
     return render_template("girlroom.html", hero=hero_)
-
+    
+    
 @app.route("/tinywashroom/")
 def tinywashroom():
-    # tymczasowo
+    if check_if_monster_attack("tinywashroom"):
+        return render_template("fight.html", hero=hero_, room="tinywashroom")
+    return redirect(url_for('tinywashroom_ok'))
+
+@app.route("/tinywashroom_ok/")
+def tinywashroom_ok():
     return render_template("tinywashroom.html", hero=hero_)
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-'''monsters rutine:
-num_of_monsters = 5
-    at entry to each monster_enabled room:
-    if rand(0-10) < num_of_monsters:
-        num_of_monsters -=1
-        monster_attack()
-        if num_of_monsters==0:
-            you_win()'''
