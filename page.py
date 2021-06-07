@@ -193,9 +193,11 @@ class Hero:
 
 @app.route("/")
 def home():
+    global hero_
+    hero_ = Hero()
+    
     return render_template("index.html")
 
-num_of_monsters = 5
 hero_ = Hero()
 
 def check_minus(val):

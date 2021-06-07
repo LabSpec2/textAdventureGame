@@ -16,9 +16,8 @@
 	 </p> 
 		<p id="fight"></p><br>
 
-
-        <p id="comeback" style="visibility: hidden;" align="center"><a href="/{{room}}"><button class="big_buttons" style="width: 40%;">Come back to {{room}}.... </button></a></p>
-		
+        <p id="comeback" style="visibility: hidden;" align="center"><a href="/{{room}}"><button class="big_buttons" style="width: 40%;">Come back to {{room}} </button></a></p>
+		<p id="dead_comeback" style="visibility: hidden;" align="center"><a href="/"><button class="big_buttons" style="width: 40%;">Try again... </button></a></p>
 	</div>
 
 
@@ -36,9 +35,15 @@
 					request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 					
 					request.onload = () => {
-						const response = request.responseText;
+						var response = request.responseText;
+                        
 						document.getElementById('fight').innerHTML = response;
-                        document.getElementById("comeback").style.visibility = "visible";
+                        
+                        if (response.endsWith("DEAD"))
+                            document.getElementById("dead_comeback").style.visibility = "visible";
+                        else
+                            document.getElementById("comeback").style.visibility = "visible";
+                        
 					}; 
 					request.send(button.name);
 					
