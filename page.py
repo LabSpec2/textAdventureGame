@@ -78,6 +78,7 @@ hero_modifier = {MonsterType.Vampire:"charisma", MonsterType.Ghost:"wisdom",\
                     magic-good:2.1.4
 '''
 item_stats = {"wooden rod":{"dexterity":3,"constitution":5,"charisma":1},\
+              "bare hands":{"dexterity":0,"constitution":0,"charisma":0},\
               "broken umbrella":{"dexterity":2,"constitution":3,"charisma":0},\
               "shards of glass":{"dexterity":3,"constitution":2,"charisma":0},\
               "old book":{"dexterity":1,"constitution":0,"charisma":0},\
@@ -113,6 +114,7 @@ item_stats = {"wooden rod":{"dexterity":3,"constitution":5,"charisma":1},\
 
 
 item_text = {"wooden rod":"You get a good grab at the solid wooden rod and take a swing at the monster.\n",\
+              "bare hands":"If only you had some sort of a weapon... You clench your your fists and prepare to punch the creature.\n",\
               "broken umbrella":"You grab the umbrella and point its spiky end at the creature.\n",\
               "shards of glass":"Shards of glass are a bit awkward to hold, but they are sharp and can surly hurt the creature!\n",\
               "old book":"You grab the... old book? Well, that might end up poorly. Desperately, you throw it at the monster\n",\
@@ -172,7 +174,7 @@ class Hero:
         self.HP = 0
         self.stat_points = 0
         self.attack_range = attack_range
-        self.items = [] 
+        self.items = []
     
         self.collected_items = ""
         self.dead = False
@@ -198,7 +200,7 @@ def home():
     
     return render_template("index.html")
 
-hero_ = Hero()
+#hero_ = Hero()
 
 def check_minus(val):
     return val > 0
@@ -220,7 +222,7 @@ def story():
             hero_.stat_points = random.randint(20, 35)
             hero_.HP = random.randint(80, 100)
             hero_.collected_items = ""
-            hero_.items = []
+            hero_.items = ["bare hands"]
 
         if request.form['name'] == "str_plus" and check_plus(hero_.stat_points, hero_.stats.strength):
             hero_.stat_points -= 1
@@ -277,6 +279,7 @@ monster_type_list = [MonsterType.Vampire, MonsterType.Ghost, MonsterType.Ghoul, 
 
 @app.route("/pick_weapon", methods=["POST"])
 def pick_weapon():
+    
     item = str(request.form)
     item = item[item.find("(") + 4: item.find(",") - 1]
     global monster_type
@@ -314,7 +317,7 @@ def monster_attack(monster_type, item):
 @app.route("/fight/")
 def fight(room="hall"):
     global monster_type
-    monster_type = random.choice(monster_type_list) 
+    monster_type = random.choice(monster_type_list)
     return render_template("fight.html", hero=hero_, room=room, monster = str(monster_type)[12:])
 
 @app.route("/hero/")
@@ -323,6 +326,7 @@ def hero():
 
 @app.route("/hall/")
 def hall():
+     
     return render_template("hall.html", hero=hero_)
 
 
@@ -338,6 +342,7 @@ def check_if_monster_attack(name):
 
 @app.route("/library/")
 def library():
+    
     if check_if_monster_attack("library"):
         return render_template("fight.html", hero=hero_, room="library", monster = str(monster_type)[12:])
     return redirect(url_for('library_ok'))
