@@ -4,6 +4,7 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install pytest
+  - pip install flask
   - pip list
 before_script:
   - export PYTHONPATH=$PYTHONPATH:$(pwd)
